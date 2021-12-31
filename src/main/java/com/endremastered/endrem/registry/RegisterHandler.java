@@ -15,7 +15,7 @@ public class RegisterHandler {
     public static void init() {
         /* Miscellaneous */
         ERConfig.load();
-        ERMap.addTradeToVillager();
+        ERMap.registerVillagerTrades();
         LootInjection.initRegister();
 
         /* Blocks & Items */
@@ -32,6 +32,8 @@ public class RegisterHandler {
 
     public final static MultiLocator EYE_ML = new MultiLocator(() -> ERConfig.EYE_STRUCTURE_LIST.getList());
     public final static MultiLocator MAP_ML = new MultiLocator(() -> ERConfig.MAP_STRUCTURE_LIST.getList());
+
+
 
 
 }

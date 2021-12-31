@@ -7,7 +7,6 @@ import com.endremastered.endrem.mixin.accessor.EyeOfEnderEntityAccessorMixin;
 import com.endremastered.endrem.mixin.accessor.PlayerEntityAccessorMixin;
 import com.endremastered.endrem.blocks.ERFrameProperties;
 import com.endremastered.endrem.registry.ERBlocks;
-import com.endremastered.endrem.util.StructureLocator;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;

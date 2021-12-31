@@ -1,7 +1,7 @@
 package com.endremastered.endrem.items;
 
 import com.endremastered.endrem.config.ERConfig;
-import com.endremastered.endrem.util.StructureLocator;
+import com.endremastered.endrem.registry.RegisterHandler;
 import com.endremastered.endrem.world.ERStructureConfig.ERConfiguredStructure;
 import com.endremastered.endrem.world.structures.ERJigsawStructures;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
@@ -20,6 +20,7 @@ import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.StructureFeature;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -41,28 +42,34 @@ public class ERMap {
         return Integer.parseInt(ERConfig.MAP_TRADE_VALUES.getList().get(2));
     }
 
-    public static ItemStack createMap(World world, BlockPos position) {
+    public static ItemStack createMap(ServerWorld serverWorld, BlockPos playerPosition) {
 
-        BlockPos structurePos = serverWorld.getChunkManager().getChunkGenerator().locateStructure(serverWorld, STRUCTURE_TO_LOCATE.get(), position, 100, false);
+        // Get position of marker
+        BlockPos structurePos = RegisterHandler.MAP_ML.getNearestPosition(serverWorld, playerPosition);
 
-        if(structurePos == null)
-            return ItemStack.EMPTY;
-
-        ItemStack stack = FilledMapItem.createMap(world, structurePos.getX(), structurePos.getZ(), (byte) 2, true, true);
-        // fillExplorationMap
-        FilledMapItem.fillExplorationMap((ServerWorld) world, stack);
+        // Create map
+        ItemStack stack = FilledMapItem.createMap(serverWorld, structurePos.getX(), structurePos.getZ(), (byte) 2, true, true);
+        FilledMapItem.fillExplorationMap(serverWorld, stack);
         MapState.addDecorationsNbt(stack, structurePos, "+", MapIcon.Type.TARGET_X);
-        if (STRUCTURE_TO_LOCATE.get() == ERJigsawStructures.END_GATE){
-            stack.setCustomName(new TranslatableText("item.endrem.end_gate_map"));
-        } else if (STRUCTURE_TO_LOCATE.get() == ERConfiguredStructure.END_CASTLE) {
-            stack.setCustomName(new TranslatableText("item.endrem.end_castle_map"));
-        } else {
-            stack.setCustomName(Text.of("Structure Map"));
-        }
+
+        stack.setCustomName(Text.of("End Remastered Map"));
         return stack;
     }
 
-    public static void addTradeToVillager() {
+    private static class CustomMapTrade implements TradeOffers.Factory {
+
+        @Override
+        public TradeOffer create(@NotNull Entity entity, Random random){
+            int priceEmeralds = random.nextInt(getMaxPrice() - getMinPrice() + 1) + getMinPrice();
+            if (!entity.world.isClient) {
+                ItemStack map = createMap( (ServerWorld) entity.world, entity.getBlockPos());
+                return new TradeOffer(new ItemStack(Items.EMERALD, priceEmeralds), new ItemStack(Items.COMPASS), map, 12, getEXP(), 0.2F);
+            }
+            return null;
+        }
+    }
+
+    public static void registerVillagerTrades() {
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.CARTOGRAPHER, 3, factories -> {
             factories.add(new CustomMapTrade());
         });
@@ -70,19 +77,5 @@ public class ERMap {
         TradeOfferHelper.registerWanderingTraderOffers(0,factories -> {
             factories.add(new CustomMapTrade());
         });
-    }
-
-    private static class CustomMapTrade implements TradeOffers.Factory {
-
-        @Override
-        public TradeOffer create(Entity entity, Random random){
-            int priceEmeralds = random.nextInt(maxPrice - minPrice + 1) + minPrice;
-            ItemStack map = createMap(entity.world, entity.getBlockPos());
-
-            if (map != ItemStack.EMPTY) {
-                return new TradeOffer(new ItemStack(Items.EMERALD, priceEmeralds), new ItemStack(Items.COMPASS), map, 12, experienceGiven, 0.2F);
-            }
-            return null;
-        }
     }
 }

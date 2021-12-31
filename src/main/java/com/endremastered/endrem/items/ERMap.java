@@ -2,8 +2,6 @@ package com.endremastered.endrem.items;
 
 import com.endremastered.endrem.config.ERConfig;
 import com.endremastered.endrem.registry.RegisterHandler;
-import com.endremastered.endrem.world.ERStructureConfig.ERConfiguredStructure;
-import com.endremastered.endrem.world.structures.ERJigsawStructures;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.FilledMapItem;
@@ -13,22 +11,15 @@ import net.minecraft.item.map.MapIcon;
 import net.minecraft.item.map.MapState;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.StructureFeature;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
 public class ERMap {
-    interface StructureGetter {
-        StructureFeature<?> get();
-    }
-    private static final StructureGetter STRUCTURE_TO_LOCATE = () -> StructureLocator.getStructureToLocate(ERConfig.MAP_LOCATES_STRUCTURE);
 
     private static int getMinPrice() {
         return Integer.parseInt(ERConfig.MAP_TRADE_VALUES.getList().get(0));
@@ -52,11 +43,13 @@ public class ERMap {
         FilledMapItem.fillExplorationMap(serverWorld, stack);
         MapState.addDecorationsNbt(stack, structurePos, "+", MapIcon.Type.TARGET_X);
 
+        // Set the name of the map
         stack.setCustomName(Text.of("End Remastered Map"));
+
         return stack;
     }
 
-    private static class CustomMapTrade implements TradeOffers.Factory {
+    private static class ERMapTrade implements TradeOffers.Factory {
 
         @Override
         public TradeOffer create(@NotNull Entity entity, Random random){
@@ -71,11 +64,11 @@ public class ERMap {
 
     public static void registerVillagerTrades() {
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.CARTOGRAPHER, 3, factories -> {
-            factories.add(new CustomMapTrade());
+            factories.add(new ERMapTrade());
         });
 
         TradeOfferHelper.registerWanderingTraderOffers(0,factories -> {
-            factories.add(new CustomMapTrade());
+            factories.add(new ERMapTrade());
         });
     }
 }

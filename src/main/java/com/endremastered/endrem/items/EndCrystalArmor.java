@@ -1,13 +1,13 @@
 package com.endremastered.endrem.items;
 
-import com.endremastered.endrem.registry.ItemRegistry;
+import com.endremastered.endrem.registry.ERItems;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 
-    public class EndCrystalArmorMaterial implements ArmorMaterial {
+    public class EndCrystalArmor implements ArmorMaterial {
         private static final int helmet = 3;
         private static final int chestplate = 8;
         private static final int leggings = 6;
@@ -38,7 +38,7 @@ import net.minecraft.sound.SoundEvents;
 
         @Override
         public Ingredient getRepairIngredient() {
-            return Ingredient.ofItems(ItemRegistry.END_CRYSTAL_FRAGMENT); //Change to End Crystal Ingot
+            return Ingredient.ofItems(ERItems.END_CRYSTAL_FRAGMENT); //Change to End Crystal Ingot
         }
 
         @Override

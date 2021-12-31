@@ -1,6 +1,6 @@
 package com.endremastered.endrem.items;
 
-import com.endremastered.endrem.config.ConfigHandler;
+import com.endremastered.endrem.config.ERConfig;
 import com.endremastered.endrem.util.StructureLocator;
 import com.endremastered.endrem.world.ERStructureConfig.ERConfiguredStructure;
 import com.endremastered.endrem.world.structures.ERJigsawStructures;
@@ -23,21 +23,25 @@ import net.minecraft.world.gen.feature.StructureFeature;
 
 import java.util.Random;
 
-public class CustomMap {
+public class ERMap {
     interface StructureGetter {
         StructureFeature<?> get();
     }
-    private static final StructureGetter STRUCTURE_TO_LOCATE = () -> StructureLocator.getStructureToLocate(ConfigHandler.MAP_LOCATES_STRUCTURE);
+    private static final StructureGetter STRUCTURE_TO_LOCATE = () -> StructureLocator.getStructureToLocate(ERConfig.MAP_LOCATES_STRUCTURE);
 
-    private static final int minPrice = 10;
-    private static final int maxPrice = 20;
-    private static final int experienceGiven = 10;
+    private static int getMinPrice() {
+        return Integer.parseInt(ERConfig.MAP_TRADE_VALUES.getList().get(0));
+    }
+
+    private static int getMaxPrice() {
+        return Integer.parseInt(ERConfig.MAP_TRADE_VALUES.getList().get(1));
+    }
+
+    private static int getEXP() {
+        return Integer.parseInt(ERConfig.MAP_TRADE_VALUES.getList().get(2));
+    }
 
     public static ItemStack createMap(World world, BlockPos position) {
-        if(!(world instanceof ServerWorld))
-            return ItemStack.EMPTY;
-
-        ServerWorld serverWorld = (ServerWorld) world;
 
         BlockPos structurePos = serverWorld.getChunkManager().getChunkGenerator().locateStructure(serverWorld, STRUCTURE_TO_LOCATE.get(), position, 100, false);
 

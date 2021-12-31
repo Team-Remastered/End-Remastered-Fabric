@@ -2,11 +2,11 @@ package com.endremastered.endrem.items;
 
 import com.endremastered.endrem.EndRemastered;
 import com.endremastered.endrem.blocks.AncientPortalFrame;
-import com.endremastered.endrem.config.ConfigHandler;
+import com.endremastered.endrem.config.ERConfig;
 import com.endremastered.endrem.mixin.accessor.EyeOfEnderEntityAccessorMixin;
 import com.endremastered.endrem.mixin.accessor.PlayerEntityAccessorMixin;
-import com.endremastered.endrem.properties.FrameProperties;
-import com.endremastered.endrem.registry.BlockRegistry;
+import com.endremastered.endrem.blocks.ERFrameProperties;
+import com.endremastered.endrem.registry.ERBlocks;
 import com.endremastered.endrem.util.StructureLocator;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.advancement.criterion.Criteria;
@@ -25,7 +25,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.structure.MineshaftGenerator;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
@@ -39,8 +38,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class EyeItem extends Item {
-    public EyeItem() {
+public class EREnderEye extends Item {
+    public EREnderEye() {
         super(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.EPIC).group(EndRemastered.ENDREM_TAB));
     }
 
@@ -58,8 +57,8 @@ public class EyeItem extends Item {
 
         Boolean frameHasEye = false;
 
-        if (blockstate.isOf(BlockRegistry.ANCIENT_PORTAL_FRAME)) {
-            frameHasEye = AncientPortalFrame.hasEye(blockstate);
+        if (blockstate.isOf(ERBlocks.ANCIENT_PORTAL_FRAME)) {
+            frameHasEye = blockstate.get(AncientPortalFrame.EYE) != ERFrameProperties.EMPTY;
         } else if (blockstate.isOf(Blocks.END_PORTAL_FRAME)) {
             frameHasEye = blockstate.get(EndPortalFrameBlock.EYE);
         } else {
@@ -69,18 +68,18 @@ public class EyeItem extends Item {
         if (world.isClient) {
             return ActionResult.SUCCESS;
         } else if (!frameHasEye) {
-            FrameProperties frameProperties = FrameProperties.getFrameProperty(context.getStack().getItem());
-            BlockState newBlockState = BlockRegistry.ANCIENT_PORTAL_FRAME.getDefaultState();
+            ERFrameProperties frameProperties = ERFrameProperties.getFramePropertyFromEye(context.getStack().getItem());
+            BlockState newBlockState = ERBlocks.ANCIENT_PORTAL_FRAME.getDefaultState();
             newBlockState = newBlockState.with(HorizontalFacingBlock.FACING, blockstate.get(HorizontalFacingBlock.FACING));
             newBlockState = newBlockState.with(AncientPortalFrame.EYE, frameProperties);
 
-            if (!AncientPortalFrame.IsFrameAlreadyUsed(world, newBlockState, blockpos)) {
+            if (!AncientPortalFrame.IsFrameAbsent(world, newBlockState, blockpos)) {
                 Block.pushEntitiesUpBeforeBlockChange(blockstate, newBlockState, world, blockpos);
                 world.setBlockState(blockpos, newBlockState, 2);
-                world.updateComparators(blockpos, BlockRegistry.ANCIENT_PORTAL_FRAME);
+                world.updateComparators(blockpos, ERBlocks.ANCIENT_PORTAL_FRAME);
                 context.getStack().decrement(1);
                 world.syncWorldEvent(1503, blockpos, 0);
-                BlockPattern.Result blockpattern$patternhelper = AncientPortalFrame.getCompletedFramePattern().searchAround(world, blockpos);
+                BlockPattern.Result blockpattern$patternhelper = AncientPortalFrame.getPortalShape(ERFrameProperties.EMPTY, true).searchAround(world, blockpos);
 
                 if (blockpattern$patternhelper != null) {
                     BlockPos blockpos1 = blockpattern$patternhelper.getFrontTopLeft().add(-3, 0, -3);
@@ -114,7 +113,7 @@ public class EyeItem extends Item {
         boolean lookingAtFrame = false;
 
         BlockState state = worldIn.getBlockState(hitResult.getBlockPos());  //IDK IF IT STILL WORKS
-        if (state.isOf(BlockRegistry.ANCIENT_PORTAL_FRAME)) {
+        if (state.isOf(ERBlocks.ANCIENT_PORTAL_FRAME)) {
             lookingAtFrame = true;
         }
 
@@ -123,7 +122,7 @@ public class EyeItem extends Item {
         } else {
             playerIn.setCurrentHand(handIn);
             if (worldIn instanceof ServerWorld) {
-                BlockPos blockpos = ((ServerWorld) worldIn).getChunkManager().getChunkGenerator().locateStructure((ServerWorld) worldIn, StructureLocator.getStructureToLocate(ConfigHandler.EYES_LOCATE_STRUCTURE.toLowerCase()), playerIn.getBlockPos(), 100, false);
+                BlockPos blockpos = ((ServerWorld) worldIn).getChunkManager().getChunkGenerator().locateStructure((ServerWorld) worldIn, StructureLocator.getStructureToLocate(ERConfig.EYES_LOCATE_STRUCTURE.toLowerCase()), playerIn.getBlockPos(), 100, false);
                 if (blockpos != null) {
                     EyeOfEnderEntity eyeOfEnderEntity = new EyeOfEnderEntity(worldIn, playerIn.getX(), playerIn.getBodyY(0.5D), playerIn.getZ());
                     eyeOfEnderEntity.setItem(itemstack);

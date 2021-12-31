@@ -12,7 +12,7 @@ import com.google.gson.GsonBuilder;
 import net.fabricmc.loader.api.FabricLoader;
 
 
-public class ConfigHandler {
+public class ERConfig {
 
     private static Path configFilePath;
     private static Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
@@ -80,7 +80,6 @@ public class ConfigHandler {
             private final String EYES_LOCATE_STRUCTURE;
 
             private final String mapLocateStructureComment = "Changes the structure that End Remastered map locate (set value to \"null\" to disable)";
-
             private final String MAP_LOCATES_STRUCTURE;
 
             private Common() {

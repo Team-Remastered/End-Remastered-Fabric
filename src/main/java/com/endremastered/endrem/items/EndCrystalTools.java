@@ -1,12 +1,12 @@
 package com.endremastered.endrem.items;
 
 import com.endremastered.endrem.EndRemastered;
-import com.endremastered.endrem.registry.ItemRegistry;
+import com.endremastered.endrem.registry.ERItems;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.*;
 import net.minecraft.recipe.Ingredient;
 
-public class EndCrystalTool {
+public class EndCrystalTools {
 
     public final static ToolMaterial MATERIAL = new EndCrystalToolMaterial();
 
@@ -69,7 +69,7 @@ public class EndCrystalTool {
 
         @Override
         public Ingredient getRepairIngredient() {
-            return Ingredient.ofItems(ItemRegistry.END_CRYSTAL_FRAGMENT);
+            return Ingredient.ofItems(ERItems.END_CRYSTAL_FRAGMENT);
         }
     }
 }

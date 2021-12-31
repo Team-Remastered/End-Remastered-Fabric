@@ -1,6 +1,6 @@
 package com.endremastered.endrem.world.gen;
 
-import com.endremastered.endrem.registry.BlockRegistry;
+import com.endremastered.endrem.registry.ERBlocks;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.block.Blocks;
@@ -22,7 +22,7 @@ public class OreSpawnHandler {
 
    private static ConfiguredFeature<?, ?> END_CRYSTAL_ORE_GEN_BLACKSTONE = Feature.ORE
            .configure(new OreFeatureConfig(new BlockMatchRuleTest(Blocks.BLACKSTONE),
-                   BlockRegistry.END_CRYSTAL_ORE.getDefaultState(),
+                   ERBlocks.END_CRYSTAL_ORE.getDefaultState(),
                    3, 0.5F))
            .range(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.aboveBottom(0), YOffset.fixed(150)))) // Inclusive min and max height
            .spreadHorizontally()
@@ -30,7 +30,7 @@ public class OreSpawnHandler {
 
     private static ConfiguredFeature<?, ?> END_CRYSTAL_ORE_GEN_POLISHED_BLACKSTONE_BRICKS = Feature.ORE
             .configure(new OreFeatureConfig(new BlockMatchRuleTest(Blocks.POLISHED_BLACKSTONE_BRICKS),
-                    BlockRegistry.END_CRYSTAL_ORE.getDefaultState(),
+                    ERBlocks.END_CRYSTAL_ORE.getDefaultState(),
                     3, 0.5F))
             .range(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.aboveBottom(0), YOffset.fixed(150)))) // Inclusive min and max height
             .spreadHorizontally()
@@ -38,7 +38,7 @@ public class OreSpawnHandler {
 
     private static ConfiguredFeature<?, ?> END_CRYSTAL_ORE_GEN_CRACKED_POLISHED_BLACKSTONE_BRICKS = Feature.ORE
             .configure(new OreFeatureConfig(new BlockMatchRuleTest(Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS),
-                    BlockRegistry.END_CRYSTAL_ORE.getDefaultState(),
+                    ERBlocks.END_CRYSTAL_ORE.getDefaultState(),
                     3, 0.5F))
             .range(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.aboveBottom(0), YOffset.fixed(150)))) // Inclusive min and max height
             .spreadHorizontally()

@@ -1,0 +1,35 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "endrem:end_crystal_horse_armor"
+    }
+  ],
+  "results": [
+    {
+      "item": "endrem:end_crystal_fragment"
+    },
+    {
+      "item": "minecraft:leather",
+      "count": 2,
+      "chance": 0.5
+    },
+    {
+      "item": "endrem:end_crystal_fragment",
+      "count": 3,
+      "chance": 0.1
+    },
+    {
+      "item": "minecraft:string",
+      "count": 2,
+      "chance": 0.25
+    }
+  ],
+  "processingTime": 200
+}

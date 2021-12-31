@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.endremastered.endrem.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "EnderEyeItemMixin",
+    "accessor.EyeOfEnderEntityAccessorMixin",
+    "accessor.PlayerEntityAccessorMixin",
+    "accessor.StructuresConfigAccessorMixin",
+    "world.ChunkGeneratorMixin",
+    "world.NoiseChunkGeneratorMixin",
+    "world.NoLakesInStructuresMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

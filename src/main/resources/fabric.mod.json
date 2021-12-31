@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "endrem",
+  "version": "${version}",
+
+  "name": "End Remastered",
+  "description": "End Remastered aims to make your Minecraft experience more challenging by emphasizing the adventurous side of the game.",
+  "authors": [
+    "jack_bagel Dev",
+    "maxmitchelson Dev",
+    "manchego_cheez Artist",
+    "gilvoisard Artist"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/endremastered",
+    "sources": "https://gitlab.com/endrem/fabric-endrem",
+    "issues": "https://gitlab.com/endrem/end-remastered-fabric/-/issues"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/endrem/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+        "com.endremastered.endrem.EndRemastered"
+    ]
+  },
+  "mixins": [
+    "endrem.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  }
+}

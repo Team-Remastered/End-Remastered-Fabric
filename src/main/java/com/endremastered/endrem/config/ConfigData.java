@@ -7,32 +7,40 @@ import java.util.List;
 public class ConfigData {
     @SerializedName("End Gate")
     public Structure END_GATE = new VariableSizeStructure(
-            List.of("1", "2", "3", "4", "5"),
-            List.of("6", "7", "8", "9", "10"),
+            List.of("plains", "jungle", "taiga", "forest", "plains", "extreme_hills", "mesa", "savanna", "icy",
+                    " desert", "swamp", "mushroom", "none"),
+            List.of("minecraft:ocean", "minecraft:deep_ocean"),
+            85,
+            130,
             15,
-            10,
-            5,
             false,
-            18
+            20
     );
 
     @SerializedName("End Castle")
     public Structure END_CASTLE = new Structure(
-            List.of("1", "2", "3", "4", "5"),
-            List.of("6", "7", "8", "9", "10"),
-            15,
-            10,
-            5,
-            false
+            List.of("minecraft:bamboo_jungle_hills", "minecraft:birch_forest_hills", "minecraft:dark_forest_hills",
+                    "minecraft:giant_spruce_taiga_hills", "minecraft:giant_tree_taiga_hills",
+                    "minecraft:gravelly_mountains", "minecraft:jungle_edge", "minecraft:jungle_hills",
+                    "minecraft:modified_gravelly_mountains", "minecraft:modified_jungle_edge",
+                    "minecraft:mountain_edge", "minecraft:mountains", "minecraft:snowy_mountains",
+                    "minecraft:snowy_taiga_hills", "minecraft:snowy_taiga_mountains", "minecraft:taiga_hills",
+                    "minecraft:taiga_mountains", "minecraft:tall_birch_hills", "minecraft:wooded_hills",
+                    "minecraft:wooded_mountains", "minecraft:savanna_plateau", "minecraft:shattered_savanna_plateau"),
+            List.of("jungle", "taiga", "forest", "none", "plains", "icy"),
+            100,
+            188,
+            0,
+            true
     );
 
     @SerializedName("Ancient Witch Hut")
     public Structure ANCIENT_WITCH_HUT = new Structure(
-            List.of("1", "2", "3", "4", "5"),
-            List.of("6", "7", "8", "9", "10"),
-            15,
-            10,
-            5,
+            List.of(),
+            List.of("swamp"),
+            25,
+            0,
+            -3,
             false
     );
 
@@ -176,6 +184,9 @@ public class ConfigData {
     }
 
     public static class Structure {
+        @SerializedName("Is Enabled")
+        public boolean enabled;
+
         @SerializedName("Whitelisted Biome Categories")
         public List<String> whitelistedBiomeCategories;
 
@@ -188,7 +199,7 @@ public class ConfigData {
         @SerializedName("Minimum Spawn Distance")
         public int spawnDistance;
 
-        @SerializedName("Generation Height (Above Ground)")
+        @SerializedName("Generation Height")
         public int height;
 
         @SerializedName("Terraforming Enabled")
@@ -196,6 +207,7 @@ public class ConfigData {
 
         private Structure(List<String> whitelistedBiomeCategoriesIn, List<String> blacklistedBiomesIn,
                           int averageDistanceIn, int spawnDistanceIn, int heightIn, boolean terraformingIn) {
+            this.enabled = true;
             this.whitelistedBiomeCategories = whitelistedBiomeCategoriesIn;
             this.blacklistedBiomes = blacklistedBiomesIn;
             this.averageDistance = averageDistanceIn;

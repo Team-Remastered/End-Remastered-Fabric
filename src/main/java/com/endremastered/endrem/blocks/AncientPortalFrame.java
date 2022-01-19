@@ -70,7 +70,7 @@ public class AncientPortalFrame extends Block {
         return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
     }
 
-    protected void createBlockStateDefinition(StateManager.Builder<Block, BlockState> stateBuilder) {
+    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING, EYE);
     }
 

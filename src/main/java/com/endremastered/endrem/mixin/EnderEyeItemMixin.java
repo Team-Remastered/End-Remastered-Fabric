@@ -23,7 +23,7 @@ public class EnderEyeItemMixin {
         cancellable = true)
     private void DisableUsingEnderEyes(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
 
-        if (ERConfig.DISABLE_EYE_OF_ENDER) {
+        if (ERConfig.getData().ENDER_EYES_ENABLED) {
             cir.setReturnValue(ActionResult.PASS);
         }
     }
@@ -32,7 +32,7 @@ public class EnderEyeItemMixin {
         at = @At(value = "HEAD"),
         cancellable = true)
     private void DisableThrowingEnderEyes(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
-        if (ERConfig.DISABLE_EYE_OF_ENDER) {
+        if (ERConfig.getData().ENDER_EYES_ENABLED) {
             ItemStack itemStack = user.getStackInHand(hand);
             cir.setReturnValue(TypedActionResult.pass(itemStack));
         }

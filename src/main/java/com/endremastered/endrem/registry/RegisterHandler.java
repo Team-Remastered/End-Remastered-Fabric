@@ -30,10 +30,6 @@ public class RegisterHandler {
         DimensionCheck.removeStructureSpawningFromSelectedDimension();
     }
 
-    public final static MultiLocator EYE_ML = new MultiLocator(() -> ERConfig.EYE_STRUCTURE_LIST.getList());
-    public final static MultiLocator MAP_ML = new MultiLocator(() -> ERConfig.MAP_STRUCTURE_LIST.getList());
-
-
-
-
+    public final static MultiLocator EYE_ML = new MultiLocator(() -> ERConfig.getData().ER_EYES.structureList);
+    public final static MultiLocator MAP_ML = new MultiLocator(() -> ERConfig.getData().ER_MAP.structureList);
 }

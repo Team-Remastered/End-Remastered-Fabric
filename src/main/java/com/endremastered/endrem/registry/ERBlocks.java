@@ -36,7 +36,7 @@ public class ERBlocks {
         registerBlock("end_crystal_ore", END_CRYSTAL_ORE);
         registerBlockItem("end_crystal_ore", new BlockItem(END_CRYSTAL_ORE, new FabricItemSettings().group(EndRemastered.ENDREM_TAB)));
 
-        registerBlock("end_crystal_block", END_CRYSTAL_ORE);
+        registerBlock("end_crystal_block", END_CRYSTAL_BLOCK);
         registerBlockItem("end_crystal_block", new BlockItem(END_CRYSTAL_BLOCK, new FabricItemSettings().group(EndRemastered.ENDREM_TAB)));
     }
 }

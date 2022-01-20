@@ -24,6 +24,10 @@ public class ERConfig {
             try {
                 Reader reader = Files.newBufferedReader(FILE_PATH);
                 configData = gson.fromJson(reader, ConfigData.class);
+                if (configData == null) {
+                    EndRemastered.LOGGER.error("Endrem: Invalid Config, will reset to default");
+                    configData = new ConfigData();
+                }
                 reader.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);

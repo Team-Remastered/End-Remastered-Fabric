@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ConfigData {
     @SerializedName("End Gate")
-    public Structure END_GATE = new VariableSizeStructure(
+    public VariableSizeStructure END_GATE = new VariableSizeStructure(
             List.of("plains", "jungle", "taiga", "forest", "plains", "extreme_hills", "mesa", "savanna", "icy",
                     " desert", "swamp", "mushroom", "none"),
             List.of("minecraft:ocean", "minecraft:deep_ocean"),
@@ -91,10 +91,10 @@ public class ConfigData {
     public static class EndCrystalGear {
 
         @SerializedName("End Crystal Armor")
-        Armor ARMOR;
+        public Armor ARMOR;
 
         @SerializedName("End Crystal Tools")
-        Tools TOOLS;
+        public Tools TOOLS;
 
         private EndCrystalGear(Armor armorIn, Tools toolsIn) {
             ARMOR = armorIn;
@@ -108,8 +108,8 @@ public class ConfigData {
             @SerializedName("Defense Factor")
             public float defenseFactor;
 
-            @SerializedName("Thoughness")
-            public float thoughness;
+            @SerializedName("Toughness")
+            public float toughness;
 
             @SerializedName("Knockback Resistance")
             public float knockbackResistance;
@@ -120,11 +120,11 @@ public class ConfigData {
             @SerializedName("Regen Duration (Ticks)")
             public int regenDuration;
 
-            private Armor(float durabilityFactorIn, float defenseFactorIn, float thoughnessIn,
+            private Armor(float durabilityFactorIn, float defenseFactorIn, float toughnessIn,
                           float knockbackResistanceIn, boolean neutralizesPiglinsIn, int regenDurationIn) {
                 this.durabilityFactor = durabilityFactorIn;
                 this.defenseFactor = defenseFactorIn;
-                this.thoughness = thoughnessIn;
+                this.toughness = toughnessIn;
                 this.knockbackResistance = knockbackResistanceIn;
                 this.neutralizesPiglins = neutralizesPiglinsIn;
                 this.regenDuration = regenDurationIn;
@@ -215,9 +215,18 @@ public class ConfigData {
             this.height = heightIn;
             this.terraforming = terraformingIn;
         }
+//
+//        private List<Biome.Category> getProcessedBiomeCategories() {
+//            List<Biome.Category> biomeCategories = new ArrayList<>();
+//            for (String biomeName : this.whitelistedBiomeCategories) {
+//                biomeCategories.add(Biome.Category.byName(biomeName));
+//            }
+//            return biomeCategories;
+//        }
     }
 
     public static class VariableSizeStructure extends Structure {
+        @SerializedName("Size")
         public int size;
 
         private VariableSizeStructure(List<String> whitelistedBiomeCategoriesIn, List<String> blacklistedBiomesIn,

@@ -2,6 +2,7 @@ package com.endremastered.endrem.items;
 
 import com.endremastered.endrem.EndRemastered;
 import com.endremastered.endrem.blocks.AncientPortalFrame;
+import com.endremastered.endrem.config.ERConfig;
 import com.endremastered.endrem.mixin.accessor.EyeOfEnderEntityAccessorMixin;
 import com.endremastered.endrem.mixin.accessor.PlayerEntityAccessorMixin;
 import com.endremastered.endrem.blocks.ERFrameProperties;
@@ -126,7 +127,7 @@ public class EREnderEye extends Item {
                     EyeOfEnderEntity eyeOfEnderEntity = new EyeOfEnderEntity(worldIn, playerIn.getX(), playerIn.getBodyY(0.5D), playerIn.getZ());
                     eyeOfEnderEntity.setItem(itemstack);
                     eyeOfEnderEntity.initTargetPos(blockpos);
-                    ((EyeOfEnderEntityAccessorMixin) eyeOfEnderEntity).setDropsItem(true);
+                    ((EyeOfEnderEntityAccessorMixin) eyeOfEnderEntity).setDropsItem(ERConfig.getData().ER_EYES.breakProbability <= playerIn.getRandom().nextInt(100));
 
                     worldIn.spawnEntity(eyeOfEnderEntity);
                     if (playerIn instanceof ServerPlayerEntity) {

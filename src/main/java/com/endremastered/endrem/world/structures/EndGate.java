@@ -1,6 +1,8 @@
 package com.endremastered.endrem.world.structures;
 
 import com.endremastered.endrem.EndRemastered;
+import com.endremastered.endrem.config.ERConfig;
+import com.endremastered.endrem.util.ERUtils;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
@@ -109,13 +111,9 @@ public class EndGate extends StructureFeature<DefaultFeatureConfig>{
         return null;
     }
 
-    public static int getChunkDistanceFromSpawn(int chunkX, int chunkZ) {
-        return (int) Math.sqrt(chunkX * chunkX + chunkZ * chunkZ);
-    }
-
     @Override
     protected boolean shouldStartAt(ChunkGenerator chunkGenerator, BiomeSource biomeSource, long seed, ChunkRandom chunkRandom, ChunkPos chunkPos, Biome biome, ChunkPos chunkPos2, DefaultFeatureConfig featureConfig, HeightLimitView heightLimitView) {
-        return getChunkDistanceFromSpawn(chunkPos.x, chunkPos.z) >= 125;
+        return ERUtils.getChunkDistanceFromSpawn(chunkPos) >= ERConfig.getData().END_GATE.spawnDistance;
     }
 
     public static class Start extends MarginedStructureStart<DefaultFeatureConfig> {
@@ -125,14 +123,13 @@ public class EndGate extends StructureFeature<DefaultFeatureConfig>{
 
         @Override
         public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, DefaultFeatureConfig defaultFeatureConfig, HeightLimitView heightLimitView) {
-            final int HEIGHT = 15;
             // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
             int x = chunkPos.x * 16;
             int z = chunkPos.z * 16;
 
-            BlockPos.Mutable centerPos = new BlockPos.Mutable(x, HEIGHT, z);
+            BlockPos.Mutable centerPos = new BlockPos.Mutable(x, ERConfig.getData().END_GATE.height, z);
             StructurePoolFeatureConfig structureSettingsAndStartPool = new StructurePoolFeatureConfig(() -> dynamicRegistryManager.get(Registry.STRUCTURE_POOL_KEY)
-                    .get(EndRemastered.createIdentifier("end_gate/start_pool")), 10);
+                    .get(EndRemastered.createIdentifier("end_gate/start_pool")), ERConfig.getData().END_GATE.size);
 
             StructurePoolBasedGenerator.generate(
                     dynamicRegistryManager,

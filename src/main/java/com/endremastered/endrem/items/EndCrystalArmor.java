@@ -1,5 +1,6 @@
 package com.endremastered.endrem.items;
 
+import com.endremastered.endrem.config.ERConfig;
 import com.endremastered.endrem.registry.ERItems;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorMaterial;
@@ -18,7 +19,7 @@ import net.minecraft.sound.SoundEvents;
 
         @Override
         public int getDurability(EquipmentSlot slot) {
-            return BASE_DURABILITY[slot.getEntitySlotId()] * 33;
+            return (int) (BASE_DURABILITY[slot.getEntitySlotId()] * ERConfig.getData().END_CRYSTAL_GEAR.ARMOR.durabilityFactor);
         }
 
         @Override
@@ -48,12 +49,12 @@ import net.minecraft.sound.SoundEvents;
 
         @Override
         public float getToughness() {
-            return 2.0F;
+            return ERConfig.getData().END_CRYSTAL_GEAR.ARMOR.toughness;
         }
 
         @Override
         public float getKnockbackResistance() {
-            return 0.1F;
+            return ERConfig.getData().END_CRYSTAL_GEAR.ARMOR.knockbackResistance;
         }
     }
 

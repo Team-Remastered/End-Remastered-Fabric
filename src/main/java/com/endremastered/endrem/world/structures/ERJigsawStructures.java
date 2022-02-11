@@ -1,17 +1,12 @@
 package com.endremastered.endrem.world.structures;
 
 import com.endremastered.endrem.EndRemastered;
-import com.endremastered.endrem.world.ERStructureConfig.ERJConfiguredStructure;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
+import com.endremastered.endrem.config.ERConfig;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
-import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.chunk.StructureConfig;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.feature.IglooFeature;
 import net.minecraft.world.gen.feature.StructureFeature;
 
 public class ERJigsawStructures {
@@ -22,19 +17,27 @@ public class ERJigsawStructures {
 
     public static void setupAndRegisterStructureFeatures() {
         /*END GATE*/
-        FabricStructureBuilder.create(EndRemastered.createIdentifier("end_gate"), END_GATE)
+        FabricStructureBuilder<DefaultFeatureConfig, StructureFeature<DefaultFeatureConfig>> end_gate_builder = FabricStructureBuilder.create(EndRemastered.createIdentifier("end_gate"), END_GATE)
                 .step(GenerationStep.Feature.STRONGHOLDS)
-                .defaultConfig(new StructureConfig(270, 230, 324894322))
-                .superflatFeature(END_GATE.configure(FeatureConfig.DEFAULT))
-                .adjustsSurface()
-                .register();
+                .defaultConfig(new StructureConfig(ERConfig.getData().END_GATE.averageDistance, ERConfig.getData().END_GATE.averageDistance - 30, 324894322))
+                .superflatFeature(END_GATE.configure(FeatureConfig.DEFAULT));
+
+        if (ERConfig.getData().END_GATE.terraforming) {
+            end_gate_builder.adjustsSurface();
+        }
+
+        end_gate_builder.register();
 
         /*ANCIENT_WITCH_HUT*/
-        FabricStructureBuilder.create(EndRemastered.createIdentifier("ancient_witch_hut"), ANCIENT_WITCH_HUT)
+        FabricStructureBuilder<DefaultFeatureConfig, StructureFeature<DefaultFeatureConfig>> hut_builder =FabricStructureBuilder.create(EndRemastered.createIdentifier("ancient_witch_hut"), ANCIENT_WITCH_HUT)
                 .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-                .defaultConfig(new StructureConfig(100, 50, 324894322))
-                .superflatFeature(ANCIENT_WITCH_HUT.configure(FeatureConfig.DEFAULT))
-                .adjustsSurface()
-                .register();
+                .defaultConfig(new StructureConfig(ERConfig.getData().ANCIENT_WITCH_HUT.averageDistance, ERConfig.getData().ANCIENT_WITCH_HUT.averageDistance - 30, 675594284))
+                .superflatFeature(ANCIENT_WITCH_HUT.configure(FeatureConfig.DEFAULT));
+
+        if (ERConfig.getData().ANCIENT_WITCH_HUT.terraforming) {
+            hut_builder.adjustsSurface();
+        }
+
+        hut_builder.register();
     }
 }

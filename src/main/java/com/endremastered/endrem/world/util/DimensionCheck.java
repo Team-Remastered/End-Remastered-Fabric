@@ -1,6 +1,6 @@
 package com.endremastered.endrem.world.util;
 
-import com.endremastered.endrem.EndRemastered;
+import com.endremastered.endrem.config.ERConfig;
 import com.endremastered.endrem.mixin.accessor.StructuresConfigAccessorMixin;
 import com.endremastered.endrem.world.ERStructureConfig.ERConfiguredStructure;
 import com.endremastered.endrem.world.structures.ERJigsawStructures;
@@ -20,7 +20,7 @@ public class DimensionCheck {
         // Controls the dimension blacklisting
         ServerWorldEvents.LOAD.register((MinecraftServer minecraftServer, ServerWorld serverWorld) -> {
 
-            if (!EndRemastered.whitelistedDimensions.contains(serverWorld.getRegistryKey().getValue().toString())) {
+            if (!ERConfig.getData().WHITELISTED_DIMENSIONS.contains(serverWorld.getRegistryKey().getValue().toString())) {
 
                 Map<StructureFeature<?>, StructureConfig> tempMap = new HashMap<>(serverWorld.getChunkManager().getChunkGenerator().getStructuresConfig().getStructures());
                 tempMap.keySet().remove(ERJigsawStructures.END_GATE);

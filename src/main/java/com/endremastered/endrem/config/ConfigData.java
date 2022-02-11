@@ -1,14 +1,18 @@
 package com.endremastered.endrem.config;
 
 import com.google.gson.annotations.SerializedName;
-
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.biome.Biome;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigData {
     @SerializedName("End Gate")
     public VariableSizeStructure END_GATE = new VariableSizeStructure(
             List.of("plains", "jungle", "taiga", "forest", "plains", "extreme_hills", "mesa", "savanna", "icy",
-                    " desert", "swamp", "mushroom", "none"),
+                    "desert", "swamp", "mushroom", "none"),
             List.of("minecraft:ocean", "minecraft:deep_ocean"),
             85,
             130,
@@ -19,6 +23,7 @@ public class ConfigData {
 
     @SerializedName("End Castle")
     public Structure END_CASTLE = new Structure(
+            List.of("jungle", "taiga", "forest", "none", "plains", "icy"),
             List.of("minecraft:bamboo_jungle_hills", "minecraft:birch_forest_hills", "minecraft:dark_forest_hills",
                     "minecraft:giant_spruce_taiga_hills", "minecraft:giant_tree_taiga_hills",
                     "minecraft:gravelly_mountains", "minecraft:jungle_edge", "minecraft:jungle_hills",
@@ -27,7 +32,6 @@ public class ConfigData {
                     "minecraft:snowy_taiga_hills", "minecraft:snowy_taiga_mountains", "minecraft:taiga_hills",
                     "minecraft:taiga_mountains", "minecraft:tall_birch_hills", "minecraft:wooded_hills",
                     "minecraft:wooded_mountains", "minecraft:savanna_plateau", "minecraft:shattered_savanna_plateau"),
-            List.of("jungle", "taiga", "forest", "none", "plains", "icy"),
             100,
             188,
             0,
@@ -36,8 +40,8 @@ public class ConfigData {
 
     @SerializedName("Ancient Witch Hut")
     public Structure ANCIENT_WITCH_HUT = new Structure(
-            List.of(),
             List.of("swamp"),
+            List.of(),
             25,
             0,
             -3,
@@ -215,14 +219,22 @@ public class ConfigData {
             this.height = heightIn;
             this.terraforming = terraformingIn;
         }
-//
-//        private List<Biome.Category> getProcessedBiomeCategories() {
-//            List<Biome.Category> biomeCategories = new ArrayList<>();
-//            for (String biomeName : this.whitelistedBiomeCategories) {
-//                biomeCategories.add(Biome.Category.byName(biomeName));
-//            }
-//            return biomeCategories;
-//        }
+
+        public List<RegistryKey<Biome>> getProcessedBiomeWhitelist() {
+            return getProcessedBiomesFromStrings(this.whitelistedBiomeCategories);
+        }
+
+        public List<RegistryKey<Biome>> getProcessedBiomeBlacklist() {
+            return getProcessedBiomesFromStrings(this.blacklistedBiomes);
+        }
+
+        private List<RegistryKey<Biome>> getProcessedBiomesFromStrings(List<String> biomeList) {
+            List<RegistryKey<Biome>> biomeKeys = new ArrayList<>();
+            for (String biomeName : biomeList) {
+                biomeKeys.add(RegistryKey.of(Registry.BIOME_KEY, new Identifier(biomeName)));
+            }
+            return biomeKeys;
+        }
     }
 
     public static class VariableSizeStructure extends Structure {

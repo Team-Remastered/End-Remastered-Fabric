@@ -27,33 +27,32 @@ import java.util.List;
 
 
 public class EndRemastered implements ModInitializer {
-	public static final Logger LOGGER = LogManager.getLogger("End Remastered Logger");
-	public static final String MOD_ID = "endrem";
-	public static final ItemGroup ENDREM_TAB = FabricItemGroupBuilder.build(
-			createIdentifier("endrem_tab"),
-			() -> new ItemStack(ERItems.ROGUE_EYE));
+    public static final Logger LOGGER = LogManager.getLogger("End Remastered Logger");
+    public static final String MOD_ID = "endrem";
+    public static final ItemGroup ENDREM_TAB = FabricItemGroupBuilder.build(
+            createIdentifier("endrem_tab"),
+            () -> new ItemStack(ERItems.ROGUE_EYE));
 
-	public static Identifier createIdentifier(String name) {
-		return new Identifier(EndRemastered.MOD_ID, name);
-	}
-	public static List<String> whitelistedDimensions = Lists.newArrayList("minecraft:overworld");
+    public static Identifier createIdentifier(String name) {
+        return new Identifier(EndRemastered.MOD_ID, name);
+    }
 
-	@Override
-	public void onInitialize() {
-		RegisterHandler.init();
-		registerCommands();
+    @Override
+    public void onInitialize() {
+        RegisterHandler.init();
+        registerCommands();
 
-		// Register Config
-		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-			System.out.println("PREPARING FOR RELOAD");
-			ERConfig.load();
-		});
-	}
+        // Register Config
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            System.out.println("PREPARING FOR RELOAD");
+            ERConfig.load();
+        });
+    }
 
 
-	private void registerCommands() {
-		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
-			new GetEndremMapCommand(dispatcher);
-		});
-	}
+    private void registerCommands() {
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+            new GetEndremMapCommand(dispatcher);
+        });
+    }
 }

@@ -1,6 +1,8 @@
 package com.endremastered.endrem.world.structures;
 
 import com.endremastered.endrem.EndRemastered;
+import com.endremastered.endrem.config.ERConfig;
+import com.endremastered.endrem.util.ERUtils;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
@@ -63,7 +65,7 @@ public class AncientWitchHut extends StructureFeature<DefaultFeatureConfig> {
 
         // Now we test to make sure our structure is not spawning on water or other fluids.
         // You can do height check instead too to make it spawn at high elevations.
-        return topBlock.getFluidState().isIn(FluidTags.WATER); //landHeight > 100;
+        return ERUtils.getChunkDistanceFromSpawn(chunkPos) >= ERConfig.getData().ANCIENT_WITCH_HUT.spawnDistance && topBlock.getFluidState().isEmpty();
     }
 
     public static class Start extends MarginedStructureStart<DefaultFeatureConfig> {
@@ -73,12 +75,11 @@ public class AncientWitchHut extends StructureFeature<DefaultFeatureConfig> {
 
         @Override
         public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, DefaultFeatureConfig defaultFeatureConfig, HeightLimitView heightLimitView) {
-            final int HEIGHT = -3;
             // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
             int x = chunkPos.x * 16;
             int z = chunkPos.z * 16;
 
-            BlockPos.Mutable centerPos = new BlockPos.Mutable(x, HEIGHT, z);
+            BlockPos.Mutable centerPos = new BlockPos.Mutable(x, ERConfig.getData().ANCIENT_WITCH_HUT.height, z);
             StructurePoolFeatureConfig structureSettingsAndStartPool = new StructurePoolFeatureConfig(() -> dynamicRegistryManager.get(Registry.STRUCTURE_POOL_KEY)
                     .get(EndRemastered.createIdentifier("ancient_witch_hut/start_pool")), 1);
 

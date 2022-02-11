@@ -1,5 +1,6 @@
 package com.endremastered.endrem.util;
 
+import com.endremastered.endrem.config.ERConfig;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -8,17 +9,10 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.StructureFeature;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public class MultiLocator {
-    private final Supplier<List<String>> STRUCTURE_LIST_SUPPLIER;
-
-    public MultiLocator(Supplier<List<String>> structureListSupplier) {
-        this.STRUCTURE_LIST_SUPPLIER = structureListSupplier;
-    }
-
     public List<String> getStructureList() {
-        return this.STRUCTURE_LIST_SUPPLIER.get();
+        return ERConfig.getData().ER_MAP.structureList;
     }
 
     public BlockPos getNearestPosition(ServerWorld serverWorld, BlockPos playerPos) {

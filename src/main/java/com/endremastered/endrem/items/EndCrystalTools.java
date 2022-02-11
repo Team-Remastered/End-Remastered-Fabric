@@ -1,6 +1,7 @@
 package com.endremastered.endrem.items;
 
 import com.endremastered.endrem.EndRemastered;
+import com.endremastered.endrem.config.ERConfig;
 import com.endremastered.endrem.registry.ERItems;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.*;
@@ -44,17 +45,17 @@ public class EndCrystalTools {
 
         @Override
         public int getDurability() {
-            return 1000;
+            return ERConfig.getData().END_CRYSTAL_GEAR.TOOLS.durability;
         }
 
         @Override
         public float getMiningSpeedMultiplier() {
-            return 11.0F;
+            return ERConfig.getData().END_CRYSTAL_GEAR.TOOLS.speed;
         }
 
         @Override
         public float getAttackDamage() {
-            return 5.0F;
+            return ERConfig.getData().END_CRYSTAL_GEAR.TOOLS.damageBonus;
         }
 
         @Override

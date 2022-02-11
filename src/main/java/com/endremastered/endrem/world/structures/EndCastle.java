@@ -1,8 +1,10 @@
 package com.endremastered.endrem.world.structures;
 
+import com.endremastered.endrem.config.ERConfig;
+import com.endremastered.endrem.util.ERUtils;
+import com.endremastered.endrem.world.util.CustomMonsterSpawn;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
-import net.minecraft.data.client.model.VariantSettings;
 import net.minecraft.entity.EntityType;
 import net.minecraft.structure.MarginedStructureStart;
 import net.minecraft.structure.StructureManager;
@@ -22,6 +24,8 @@ import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
+import java.util.List;
+
 public class EndCastle extends StructureFeature<DefaultFeatureConfig> {
 
     public EndCastle(Codec<DefaultFeatureConfig> codec) {
@@ -39,22 +43,19 @@ public class EndCastle extends StructureFeature<DefaultFeatureConfig> {
         int landHeight = chunkGenerator.getHeightInGround(centerOfChunk.getX(), centerOfChunk.getZ(), Heightmap.Type.WORLD_SURFACE_WG, heightLimitView);
         VerticalBlockSample columnOfBlocks = chunkGenerator.getColumnSample(centerOfChunk.getX(), centerOfChunk.getZ(), heightLimitView);
         BlockState topBlock = columnOfBlocks.getState(centerOfChunk.up(landHeight));
-
-        if (EndGate.getChunkDistanceFromSpawn(chunkPos.x, chunkPos.z) >= 125 && topBlock.getFluidState().isEmpty()) {
-            return true;
-        }
-        return false;
+        return ERUtils.getChunkDistanceFromSpawn(chunkPos) >= ERConfig.getData().END_CASTLE.spawnDistance && topBlock.getFluidState().isEmpty();
     }
 
-    private static final Pool<SpawnSettings.SpawnEntry> STRUCTURE_MONSTERS = Pool.of(
-            new SpawnSettings.SpawnEntry(EntityType.PILLAGER, 30, 30, 35),
-            new SpawnSettings.SpawnEntry(EntityType.VINDICATOR, 20, 25, 30),
-            new SpawnSettings.SpawnEntry(EntityType.EVOKER, 20, 10, 15),
-            new SpawnSettings.SpawnEntry(EntityType.ILLUSIONER, 5, 5, 10)
+    private static final List<CustomMonsterSpawn> STRUCTURE_MONSTERS = List.of(
+            new CustomMonsterSpawn(EntityType.PILLAGER, 30, 30, 35),
+            new CustomMonsterSpawn(EntityType.VINDICATOR, 20, 25, 30),
+            new CustomMonsterSpawn(EntityType.EVOKER, 20, 10, 15),
+            new CustomMonsterSpawn(EntityType.ILLUSIONER, 5, 5, 10)
     );
+
     @Override
     public Pool<SpawnSettings.SpawnEntry> getMonsterSpawns() {
-        return STRUCTURE_MONSTERS;
+        return CustomMonsterSpawn.getPoolFromList(STRUCTURE_MONSTERS);
     }
 
     public static class Start extends MarginedStructureStart<DefaultFeatureConfig> {
@@ -71,7 +72,7 @@ public class EndCastle extends StructureFeature<DefaultFeatureConfig> {
             int x = pos.x * 16;
             int z = pos.z * 16;
             int y = chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG, world);
-            BlockPos newPos = new BlockPos(x, y, z);
+            BlockPos newPos = new BlockPos(x, y + ERConfig.getData().END_CASTLE.height, z);
             EndCastlePieces.start(manager, newPos, rotation, this.children);
             this.setBoundingBoxFromChildren();
         }

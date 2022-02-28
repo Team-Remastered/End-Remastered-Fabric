@@ -55,7 +55,7 @@ public class EREnderEye extends Item {
         BlockPos blockpos = context.getBlockPos();
         BlockState blockstate = world.getBlockState(blockpos);
 
-        Boolean frameHasEye = false;
+        Boolean frameHasEye;
 
         if (blockstate.isOf(ERBlocks.ANCIENT_PORTAL_FRAME)) {
             frameHasEye = blockstate.get(AncientPortalFrame.EYE) != ERFrameProperties.EMPTY;
@@ -73,7 +73,7 @@ public class EREnderEye extends Item {
             newBlockState = newBlockState.with(HorizontalFacingBlock.FACING, blockstate.get(HorizontalFacingBlock.FACING));
             newBlockState = newBlockState.with(AncientPortalFrame.EYE, frameProperties);
 
-            if (!AncientPortalFrame.IsFrameAbsent(world, newBlockState, blockpos)) {
+            if (AncientPortalFrame.IsFrameAbsent(world, newBlockState, blockpos)) {
                 Block.pushEntitiesUpBeforeBlockChange(blockstate, newBlockState, world, blockpos);
                 world.setBlockState(blockpos, newBlockState, 2);
                 world.updateComparators(blockpos, ERBlocks.ANCIENT_PORTAL_FRAME);

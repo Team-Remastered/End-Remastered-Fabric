@@ -49,9 +49,7 @@
     "item.endrem.end_crystal_chestplate": "Plastron en Cristal de l'End",
     "item.endrem.end_crystal_leggings": "Jambières en Cristal de l'End",
     "item.endrem.end_crystal_boots": "Bottes en Cristal de l'End",
-    "item.endrem.armor.description.main": "Lorsque vous faites une attaque critique, vous obtenez 1 seconde de Régénération II",
-    "item.endrem.armor.description.shift": "Avec une armure complète en Cristal de l'End, l'effet est d'une de durée de 4 secondes",
-    "item.endrem.press_shift": "Appuyez sur MAJ pour plus de détails",
+    "item.endrem.armor.description.main": "Lorsque vous faites une attaque critique, obtenez l'effet Régénération II",
 
     "item.endrem.end_crystal_hoe": "Houe en Cristal de l'End",
     "item.endrem.end_crystal_axe": "Hache en Cristal de l'End",
@@ -59,7 +57,6 @@
     "item.endrem.end_crystal_shovel": "Pelle en Cristal de l'End",
     "item.endrem.end_crystal_sword": "Épée en Cristal de l'End",
 
-    "item.endrem.end_crystal_horse_armor": "Armure pour Cheval en Cristal de l'End",
     "item.endrem.end_castle_map": "Carte du Château de l'End",
     "item.endrem.end_gate_map": "Carte de la Barrière de l'End",
 

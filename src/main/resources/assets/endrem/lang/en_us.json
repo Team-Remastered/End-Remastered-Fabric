@@ -1,6 +1,6 @@
 {
   "item.endrem.old_eye": "Old Eye",
-  "item.endrem.old_eye.description": "Legends say this eye once belonged to \r\n one of the great Sandworms",
+  "item.endrem.old_eye.description": "Legends say this eye once belonged to one of the great Sandworms",
 
   "item.endrem.rogue_eye": "Rogue Eye",
   "item.endrem.rogue_eye.description": "This eye is believed to have given our ancestors the knowledge of Redstone",
@@ -15,7 +15,7 @@
   "item.endrem.magical_eye.description": "Without this eye, the Evoker has no power",
 
   "item.endrem.black_eye": "Black Eye",
-  "item.endrem.black_eye.description": "Pirates say it gave sight to the legendary Black eye",
+  "item.endrem.black_eye.description": "Pirates say it gave sight to the legendary Black pearl",
 
   "item.endrem.lost_eye": "Lost Eye",
   "item.endrem.lost_eye.description": "It is told that it was forged by the first blacksmiths of time",
@@ -49,9 +49,7 @@
   "item.endrem.end_crystal_chestplate": "End Crystal Chestplate",
   "item.endrem.end_crystal_leggings": "End Crystal Leggings",
   "item.endrem.end_crystal_boots": "End Crystal Boots",
-  "item.endrem.armor.description.main": "When making a critical hit, you get 1 second of Regeneration II",
-  "item.endrem.armor.description.shift": "With a full End Crystal Armor, the effect lasts 4 seconds",
-  "item.endrem.press_shift": "Press SHIFT for more details",
+  "item.endrem.armor.description.main": "Upon making a critical attack, obtain the Regeneration II effect",
 
   "item.endrem.end_crystal_hoe": "End Crystal Hoe",
   "item.endrem.end_crystal_axe": "End Crystal Axe",
@@ -59,7 +57,6 @@
   "item.endrem.end_crystal_shovel": "End Crystal Shovel",
   "item.endrem.end_crystal_sword": "End Crystal Sword",
 
-  "item.endrem.end_crystal_horse_armor": "End Crystal Horse Armor",
   "item.endrem.end_castle_map": "End Castle Map",
   "item.endrem.end_gate_map": "End Gate Map",
 
@@ -70,7 +67,7 @@
   "block.endrem.end_crystal_ore": "End Crystal Ore",
   "block.endrem.end_crystal_block": "End Crystal Block",
 
-  "itemGroup.endrem.endrem_tab": "End Remastered",
+  "itemGroup.endremTab": "End Remastered",
 
   "block.portal_open_sound": "Portal Opening",
   "block.portal_open_sound.sub": "Portal Opening",

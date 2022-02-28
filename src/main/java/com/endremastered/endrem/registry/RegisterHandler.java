@@ -28,6 +28,7 @@ public class RegisterHandler {
         ERJConfiguredStructure.registerConfiguredStructures();
         ERConfiguredStructure.registerConfiguredStructures();
         DimensionCheck.removeStructureSpawningFromSelectedDimension();
+        ERProcessors.init();
     }
 
     public final static MultiLocator EYE_ML = new MultiLocator();

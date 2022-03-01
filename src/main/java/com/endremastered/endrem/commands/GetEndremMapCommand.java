@@ -17,7 +17,7 @@ public class GetEndremMapCommand {
 
     private int getEndremMap(ServerCommandSource source) throws CommandSyntaxException {
         ServerPlayerEntity player = source.getPlayer();
-        player.giveItemStack(ERMap.createMap(player.getServerWorld(), player.getBlockPos()));
+        player.giveItemStack(ERMap.createMap(player.getWorld(), player.getBlockPos()));
         source.sendFeedback(new TranslatableText(String.format("Gave [Endrem Map] x 1 to %s", player.getDisplayName().getString())), true);
         return 1;
     }

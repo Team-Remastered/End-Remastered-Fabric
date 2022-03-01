@@ -4,10 +4,9 @@ import com.endremastered.endrem.config.ERConfig;
 import com.endremastered.endrem.items.ERMap;
 import com.endremastered.endrem.util.LootInjection;
 import com.endremastered.endrem.util.MultiLocator;
-import com.endremastered.endrem.world.ERStructureConfig.ERConfiguredStructure;
-import com.endremastered.endrem.world.ERStructureConfig.ERJConfiguredStructure;
+import com.endremastered.endrem.world.ERStructureConfig.ERConfiguredStructures;
 import com.endremastered.endrem.world.gen.OreSpawnHandler;
-import com.endremastered.endrem.world.structures.ERJigsawStructures;
+import com.endremastered.endrem.world.ERStructureConfig.ERStructures;
 import com.endremastered.endrem.world.util.DimensionCheck;
 
 public class RegisterHandler {
@@ -24,9 +23,8 @@ public class RegisterHandler {
 
         /* Features */
         OreSpawnHandler.init();
-        ERJigsawStructures.setupAndRegisterStructureFeatures();
-        ERJConfiguredStructure.registerConfiguredStructures();
-        ERConfiguredStructure.registerConfiguredStructures();
+        ERStructures.setupAndRegisterStructureFeatures();
+        ERConfiguredStructures.registerConfiguredStructures();
         DimensionCheck.removeStructureSpawningFromSelectedDimension();
         ERProcessors.init();
     }

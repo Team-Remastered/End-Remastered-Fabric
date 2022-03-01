@@ -2,8 +2,7 @@ package com.endremastered.endrem.world.util;
 
 import com.endremastered.endrem.config.ERConfig;
 import com.endremastered.endrem.mixin.accessor.StructuresConfigAccessorMixin;
-import com.endremastered.endrem.world.ERStructureConfig.ERConfiguredStructure;
-import com.endremastered.endrem.world.structures.ERJigsawStructures;
+import com.endremastered.endrem.world.ERStructureConfig.ERStructures;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
@@ -23,9 +22,9 @@ public class DimensionCheck {
             if (!ERConfig.getData().WHITELISTED_DIMENSIONS.contains(serverWorld.getRegistryKey().getValue().toString())) {
 
                 Map<StructureFeature<?>, StructureConfig> tempMap = new HashMap<>(serverWorld.getChunkManager().getChunkGenerator().getStructuresConfig().getStructures());
-                tempMap.keySet().remove(ERJigsawStructures.END_GATE);
+                tempMap.keySet().remove(ERStructures.END_GATE);
                 tempMap.keySet().remove(ERConfiguredStructure.END_CASTLE);
-                tempMap.keySet().remove(ERJigsawStructures.ANCIENT_WITCH_HUT);
+                tempMap.keySet().remove(ERStructures.ANCIENT_WITCH_HUT);
                 ((StructuresConfigAccessorMixin) serverWorld.getChunkManager().getChunkGenerator().getStructuresConfig()).setStructures(tempMap);
             }
 

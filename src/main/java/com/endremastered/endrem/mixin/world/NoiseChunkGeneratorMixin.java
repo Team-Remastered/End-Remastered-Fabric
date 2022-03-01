@@ -1,8 +1,8 @@
 package com.endremastered.endrem.mixin.world;
 
 
-import com.endremastered.endrem.world.ERStructureConfig.ERConfiguredStructure;
-import com.endremastered.endrem.world.structures.ERJigsawStructures;
+import com.endremastered.endrem.world.ERStructureConfig.ERConfiguredStructures;
+import com.endremastered.endrem.world.ERStructureConfig.ERStructures;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.collection.Pool;
 import net.minecraft.util.math.BlockPos;
@@ -31,14 +31,14 @@ public class NoiseChunkGeneratorMixin {
     private static Pool<SpawnSettings.SpawnEntry> getStructureSpawns(Biome biome, StructureAccessor accessor, SpawnGroup group, BlockPos pos){
 
         if (group == SpawnGroup.MONSTER) {
-            if (accessor.getStructureAt(pos, true, ERJigsawStructures.END_GATE).hasChildren()) {
-                return ERJigsawStructures.END_GATE.getMonsterSpawns();
+            if (accessor.getStructureAt(pos, true, ERStructures.END_GATE).hasChildren()) {
+                return ERStructures.END_GATE.getMonsterSpawns();
             }
-            if (accessor.getStructureAt(pos, true, ERConfiguredStructure.END_CASTLE).hasChildren()) {
-                return ERConfiguredStructure.END_CASTLE.getMonsterSpawns();
+            if (accessor.getStructureAt(pos, true, ERConfiguredStructures.END_CASTLE).hasChildren()) {
+                return ERConfiguredStructures.END_CASTLE.getMonsterSpawns();
             }
-            if (accessor.getStructureAt(pos, true, ERJigsawStructures.ANCIENT_WITCH_HUT).hasChildren()) {
-                return ERJigsawStructures.ANCIENT_WITCH_HUT.getMonsterSpawns();
+            if (accessor.getStructureAt(pos, true, ERStructures.ANCIENT_WITCH_HUT).hasChildren()) {
+                return ERStructures.ANCIENT_WITCH_HUT.getMonsterSpawns();
             }
         }
 

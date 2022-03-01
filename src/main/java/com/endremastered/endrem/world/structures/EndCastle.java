@@ -26,15 +26,14 @@ import java.util.Random;
 public class EndCastle extends StructureFeature<DefaultFeatureConfig> {
 
     public EndCastle(Codec<DefaultFeatureConfig> codec) {
-        super(codec);
+        super(codec, StructureGeneratorFactory.simple(StructureGeneratorFactory.checkForBiomeOnTop(Heightmap.Type.WORLD_SURFACE_WG), EndCastle::addPieces));
     }
-
-    protected static boolean isFeatureChunk(StructureGeneratorFactory.Context<StructurePoolFeatureConfig> context) {
-        BlockPos centerOfChunk = new BlockPos(chunkPos.x * 16, 0, chunkPos.z * 16);
-        int landHeight = chunkGenerator.getHeightInGround(centerOfChunk.getX(), centerOfChunk.getZ(), Heightmap.Type.WORLD_SURFACE_WG, heightLimitView);
-        VerticalBlockSample columnOfBlocks = chunkGenerator.getColumnSample(centerOfChunk.getX(), centerOfChunk.getZ(), heightLimitView);
-        BlockState topBlock = columnOfBlocks.getState(centerOfChunk.up(landHeight));
-        return ERUtils.getChunkDistanceFromSpawn(chunkPos) >= ERConfig.getData().END_CASTLE.spawnDistance && topBlock.getFluidState().isEmpty();
+    protected static boolean isFeatureChunk(StructurePiecesGenerator.Context<DefaultFeatureConfig> context) {
+        BlockPos centerOfChunk = new BlockPos(context.chunkPos().x * 16, 0, context.chunkPos().z * 16);
+        int landHeight = context.chunkGenerator().getHeightInGround(centerOfChunk.getX(), centerOfChunk.getZ(), Heightmap.Type.WORLD_SURFACE_WG, context.world());
+        VerticalBlockSample columnOfBlocks = context.chunkGenerator().getColumnSample(centerOfChunk.getX(), centerOfChunk.getZ(), context.world());
+        BlockState topBlock = columnOfBlocks.getState(landHeight);
+        return ERUtils.getChunkDistanceFromSpawn(context.chunkPos()) >= ERConfig.getData().END_CASTLE.spawnDistance && topBlock.getFluidState().isEmpty();
     }
 
     private static final List<CustomMonsterSpawn> STRUCTURE_MONSTERS = List.of(
@@ -44,27 +43,38 @@ public class EndCastle extends StructureFeature<DefaultFeatureConfig> {
             new CustomMonsterSpawn(EntityType.ILLUSIONER, 5, 5, 10)
     );
 
-    @Override
     public Pool<SpawnSettings.SpawnEntry> getMonsterSpawns() {
         return CustomMonsterSpawn.getPoolFromList(STRUCTURE_MONSTERS);
     }
 
-    public static class Start extends StructureStart<DefaultFeatureConfig> {
-        public Start(StructureFeature<DefaultFeatureConfig> structureIn, ChunkPos chunkPos, int referenceIn, StructurePiecesList children) {
-            super(structureIn, chunkPos, referenceIn,children);
+    private static void addPieces(StructurePiecesCollector collector, StructurePiecesGenerator.Context<DefaultFeatureConfig> context) {
+        if (!isFeatureChunk(context)) {
+            return;
         }
+            BlockRotation rotation = BlockRotation.values()[context.random().nextInt(BlockRotation.values().length)];
 
-        @Override
-        public void place(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox chunkBox, ChunkPos chunkPos) {
+        // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
+        int x = (context.chunkPos().x << 4);
+        int z = (context.chunkPos().z << 4);
 
-            BlockRotation rotation = BlockRotation.values()[random.nextInt(BlockRotation.values().length)];
-
-            int x = chunkPos.x * 16;
-            int z = chunkPos.z * 16;
-            int y = chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG, world);
+        if (rotation == BlockRotation.CLOCKWISE_90) {
+            x += 17;
+            z += 43;
+        }
+        else if (rotation == BlockRotation.CLOCKWISE_180) {
+            x -= 43;
+            z += 17;
+        }
+        else if (rotation == BlockRotation.COUNTERCLOCKWISE_90) {
+            x -= 17;
+            z -= 43;
+        }
+        else {
+            x += 43;
+            z -= 17;
+        }
+            int y = context.chunkGenerator().getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG, context.world());
             BlockPos newPos = new BlockPos(x, y + ERConfig.getData().END_CASTLE.height, z);
-            EndCastlePieces.start(world.getServer().getStructureManager(),  newPos, rotation, this.getChildren());
-            this.getBoundingBox();
+            EndCastlePieces.start(context.structureManager(),  newPos, rotation, collector, context.random());
         }
     }
-}

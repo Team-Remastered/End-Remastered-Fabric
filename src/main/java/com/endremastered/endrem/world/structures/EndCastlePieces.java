@@ -1,15 +1,13 @@
 package com.endremastered.endrem.world.structures;
 
 import com.endremastered.endrem.EndRemastered;
-import com.endremastered.endrem.world.ERStructureConfig.ERConfiguredStructure;
+import com.endremastered.endrem.world.ERStructureConfig.ERConfiguredStructures;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.data.client.model.VariantSettings;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.*;
 import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
 import net.minecraft.util.BlockMirror;
@@ -19,7 +17,6 @@ import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ServerWorldAccess;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -62,20 +59,20 @@ public class EndCastlePieces {
             .put(MID_MID, new BlockPos(0, height, 0))
             .build();
 
-    public static void start(StructureManager manager, BlockPos pos, BlockRotation rotation, List<StructurePiece> pieceList) {
+    public static void start(StructureManager manager, BlockPos pos, BlockRotation rotation, StructurePiecesHolder piecesHolder, Random random) {
         for (Map.Entry<Identifier, BlockPos> entry : OFFSET.entrySet()) {
-            pieceList.add(new EndCastlePieces.Piece(manager, entry.getKey(), entry.getValue().rotate(rotation).add (pos.getX(), pos.getY(), pos.getZ()), rotation, 0));
+            piecesHolder.addPiece(new EndCastlePieces.EndCastlePiece(manager, entry.getKey(), entry.getValue().rotate(rotation).add (pos.getX(), pos.getY(), pos.getZ()), rotation, 0));
         }
     }
 
-    public static class Piece extends SimpleStructurePiece {
+    public static class EndCastlePiece extends SimpleStructurePiece {
 
-        public Piece(StructureManager manager, Identifier template, BlockPos pos, BlockRotation rotation, int p_71248_) {
-            super(ERConfiguredStructure.PIECE, 0, manager, template, template.toString(), createPlacementData(rotation), pos);
+        public EndCastlePiece(StructureManager manager, Identifier template, BlockPos pos, BlockRotation rotation, int p_71248_) {
+            super(ERConfiguredStructures.PIECE, 0, manager, template, template.toString(), createPlacementData(rotation), pos);
         }
 
-        public Piece(StructureManager manager, NbtCompound nbt) {
-            super(ERConfiguredStructure.PIECE, nbt, manager, (identifier1 -> createPlacementData(BlockRotation.valueOf(nbt.getString("Rot")))));
+        public EndCastlePiece(StructureContext context, NbtCompound nbt) {
+            super(ERConfiguredStructures.PIECE, nbt, context.structureManager(), (identifier1 -> createPlacementData(BlockRotation.valueOf(nbt.getString("Rot")))));
         }
 
         private static StructurePlacementData createPlacementData(BlockRotation rotation) {

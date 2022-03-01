@@ -31,7 +31,7 @@ public class AncientWitchHut extends StructureFeature<StructurePoolFeatureConfig
     );
 
 
-    public Pool<SpawnSettings.SpawnEntry> getMonsterSpawns() {
+    public static Pool<SpawnSettings.SpawnEntry> getMonsterSpawns() {
         return STRUCTURE_MONSTERS;
     }
 

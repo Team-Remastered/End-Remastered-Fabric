@@ -37,7 +37,7 @@ public class EndGate extends StructureFeature<StructurePoolFeatureConfig>{
             new SpawnSettings.SpawnEntry(EntityType.WITCH, 10, 10, 15)
             );
 
-    public Pool<SpawnSettings.SpawnEntry> getMonsterSpawns() {
+    public static Pool<SpawnSettings.SpawnEntry> getMonsterSpawns() {
         return STRUCTURE_MONSTERS;
     }
 

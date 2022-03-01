@@ -43,7 +43,7 @@ public class EndCastle extends StructureFeature<DefaultFeatureConfig> {
             new CustomMonsterSpawn(EntityType.ILLUSIONER, 5, 5, 10)
     );
 
-    public Pool<SpawnSettings.SpawnEntry> getMonsterSpawns() {
+    public static Pool<SpawnSettings.SpawnEntry> getMonsterSpawns() {
         return CustomMonsterSpawn.getPoolFromList(STRUCTURE_MONSTERS);
     }
 

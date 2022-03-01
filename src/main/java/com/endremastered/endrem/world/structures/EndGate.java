@@ -4,45 +4,30 @@ import com.endremastered.endrem.EndRemastered;
 import com.endremastered.endrem.config.ERConfig;
 import com.endremastered.endrem.util.ERUtils;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
-import net.minecraft.structure.MarginedStructureStart;
-import net.minecraft.structure.PoolStructurePiece;
-import net.minecraft.structure.StructureManager;
-import net.minecraft.structure.StructureStart;
+import net.minecraft.structure.*;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
 import net.minecraft.util.collection.Pool;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.ChunkSectionPos;
-import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.HeightLimitView;
-import net.minecraft.world.Heightmap;
+import net.minecraft.world.StructurePresence;
 import net.minecraft.world.WorldView;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.SpawnSettings;
-import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkStatus;
-import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.StructureAccessor;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.StructureConfig;
-import net.minecraft.world.gen.chunk.VerticalBlockSample;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 import org.jetbrains.annotations.Nullable;
 
-public class EndGate extends StructureFeature<DefaultFeatureConfig>{
-    public EndGate(Codec<DefaultFeatureConfig> codec) {
-        super(codec);
-    }
+import java.util.Optional;
 
-    @Override
-    public StructureFeature.StructureStartFactory<DefaultFeatureConfig> getStructureStartFactory() {
-        return EndGate.Start::new;
+public class EndGate extends StructureFeature<StructurePoolFeatureConfig>{
+    public EndGate(Codec<StructurePoolFeatureConfig> codec) {
+        super(codec, EndGate::createPiecesGenerator, PostPlacementProcessor.EMPTY);
     }
 
     private static final Pool<SpawnSettings.SpawnEntry> STRUCTURE_MONSTERS = Pool.of(
@@ -52,7 +37,6 @@ public class EndGate extends StructureFeature<DefaultFeatureConfig>{
             new SpawnSettings.SpawnEntry(EntityType.WITCH, 10, 10, 15)
             );
 
-    @Override
     public Pool<SpawnSettings.SpawnEntry> getMonsterSpawns() {
         return STRUCTURE_MONSTERS;
     }
@@ -64,9 +48,8 @@ public class EndGate extends StructureFeature<DefaultFeatureConfig>{
         int i = config.getSpacing();
         int j = ChunkSectionPos.getSectionCoord(searchStartPos.getX());
         int k = ChunkSectionPos.getSectionCoord(searchStartPos.getZ());
-        int l = 0;
 
-        for(ChunkRandom chunkRandom = new ChunkRandom(); l <= searchRadius; ++l) {
+        for(int l = 0; l <= searchRadius; ++l) {
             for(int m = -l; m <= l; ++m) {
                 boolean bl = m == -l || m == l;
 
@@ -75,24 +58,25 @@ public class EndGate extends StructureFeature<DefaultFeatureConfig>{
                     if (bl || bl2) {
                         int o = j + i * m;
                         int p = k + i * n;
-                        ChunkPos chunkPos = this.getStartChunk(config, worldSeed, chunkRandom, o, p);
-                        boolean bl3 = world.getBiomeAccess().getBiomeForNoiseGen(chunkPos).getGenerationSettings().hasStructureFeature(this);
-                        if (bl3) {
+                        ChunkPos chunkPos = this.getStartChunk(config, worldSeed, o, p);
+                        StructurePresence structurePresence = structureAccessor.getStructurePresence(chunkPos, this, skipExistingChunks);
+                        if (structurePresence != StructurePresence.START_NOT_PRESENT) {
+                            if (!skipExistingChunks && structurePresence == StructurePresence.START_PRESENT) {
+                                return this.getLocatedPos(chunkPos);
+                            }
                             Chunk chunk = world.getChunk(chunkPos.x, chunkPos.z, ChunkStatus.STRUCTURE_STARTS);
                             StructureStart<?> structureStart = structureAccessor.getStructureStart(ChunkSectionPos.from(chunk), this, chunk);
                             if (structureStart != null && structureStart.hasChildren()) {
                                 if (skipExistingChunks && structureStart.isInExistingChunk()) {
-                                    structureStart.incrementReferences();
-                                    return new BlockPos(structureStart.getChildren().get(((Start) structureStart).getLocatedRoom()).getBoundingBox().getMinX(),
-                                            structureStart.getChildren().get(((Start) structureStart).getLocatedRoom()).getBoundingBox().getMinY(),
-                                            structureStart.getChildren().get(((Start) structureStart).getLocatedRoom()).getBoundingBox().getMinZ());
+                                    structureAccessor.incrementReferences(structureStart);
+                                    return this.getLocatedPos(structureStart.getPos());
                                 }
 
                                 if (!skipExistingChunks) {
-                                    return new BlockPos(structureStart.getChildren().get(((Start) structureStart).getLocatedRoom()).getBoundingBox().getMinX(),
-                                            structureStart.getChildren().get(((Start) structureStart).getLocatedRoom()).getBoundingBox().getMinY(),
-                                            structureStart.getChildren().get(((Start) structureStart).getLocatedRoom()).getBoundingBox().getMinZ());
+                                    return this.getLocatedPos(structureStart.getPos());
                                 }
+                            if (!skipExistingChunks) {
+                                return this.getLocatedPos(structureStart.getPos());
                             }
                         }
 
@@ -101,52 +85,57 @@ public class EndGate extends StructureFeature<DefaultFeatureConfig>{
                         }
                     }
                 }
+            }
 
-                if (l == 0) {
-                    break;
-                }
+            if (l == 0) {
+                break;
             }
         }
-
+    }
         return null;
+}
+
+    protected static boolean isFeatureChunk(StructureGeneratorFactory.Context<StructurePoolFeatureConfig> context) {
+        return ERUtils.getChunkDistanceFromSpawn(context.chunkPos()) >= ERConfig.getData().END_GATE.spawnDistance;
     }
 
-    @Override
-    protected boolean shouldStartAt(ChunkGenerator chunkGenerator, BiomeSource biomeSource, long seed, ChunkRandom chunkRandom, ChunkPos chunkPos, Biome biome, ChunkPos chunkPos2, DefaultFeatureConfig featureConfig, HeightLimitView heightLimitView) {
-        return ERUtils.getChunkDistanceFromSpawn(chunkPos) >= ERConfig.getData().END_GATE.spawnDistance;
-    }
+    public static Optional<StructurePiecesGenerator<StructurePoolFeatureConfig>> createPiecesGenerator(StructureGeneratorFactory.Context<StructurePoolFeatureConfig> context) {
 
-    public static class Start extends MarginedStructureStart<DefaultFeatureConfig> {
-        public Start(StructureFeature<DefaultFeatureConfig> structureIn, ChunkPos chunkPos, int referenceIn, long seedIn) {
-            super(structureIn, chunkPos, referenceIn, seedIn);
+        // Check if the spot is valid for our structure. This is just as another method for cleanness.
+        // Returning an empty optional tells the game to skip this spot as it will not generate the structure.
+        if (!AncientWitchHut.isFeatureChunk(context)) {
+            return Optional.empty();
         }
 
-        @Override
-        public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, DefaultFeatureConfig defaultFeatureConfig, HeightLimitView heightLimitView) {
-            // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
-            int x = chunkPos.x * 16;
-            int z = chunkPos.z * 16;
+        StructurePoolFeatureConfig newConfig = new StructurePoolFeatureConfig(
+                () -> context.registryManager().get(Registry.STRUCTURE_POOL_KEY)
+                        .get(EndRemastered.createIdentifier("end_gate/start_pool")), ERConfig.getData().END_GATE.size);
 
-            BlockPos.Mutable centerPos = new BlockPos.Mutable(x, ERConfig.getData().END_GATE.height, z);
-            StructurePoolFeatureConfig structureSettingsAndStartPool = new StructurePoolFeatureConfig(() -> dynamicRegistryManager.get(Registry.STRUCTURE_POOL_KEY)
-                    .get(EndRemastered.createIdentifier("end_gate/start_pool")), ERConfig.getData().END_GATE.size);
+        StructureGeneratorFactory.Context<StructurePoolFeatureConfig> newContext = new StructureGeneratorFactory.Context<>(
+                context.chunkGenerator(),
+                context.biomeSource(),
+                context.seed(),
+                context.chunkPos(),
+                newConfig,
+                context.world(),
+                context.validBiome(),
+                context.structureManager(),
+                context.registryManager()
+        );
 
-            StructurePoolBasedGenerator.generate(
-                    dynamicRegistryManager,
-                    structureSettingsAndStartPool,
-                    PoolStructurePiece::new,
-                    chunkGenerator,
-                    structureManager,
-                    centerPos, // Position of the structure. Y value is ignored if last parameter is set to true.
-                    this, // The class instance that holds the list that will be populated with the jigsaw pieces after this method.
-                    this.random,
-                    false, // Special boundary adjustments for villages. It's... hard to explain. Keep this false and make your pieces not be partially intersecting.
-                    // Either not intersecting or fully contained will make children pieces spawn just fine. It's easier that way.
-                    false,
-                    heightLimitView);
-        }
-        public int getLocatedRoom() {
-            return Math.min(16, this.children.size()) - 1;
-        }
+        // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
+        BlockPos blockpos = context.chunkPos().getCenterAtY(0);
+
+        Optional<StructurePiecesGenerator<StructurePoolFeatureConfig>> structurePiecesGenerator =
+                StructurePoolBasedGenerator.generate(
+                        newContext, // Used for StructurePoolBasedGenerator to get all the proper behaviors done.
+                        PoolStructurePiece::new, // Needed in order to create a list of jigsaw pieces when making the structure's layout.
+                        blockpos, // Position of the structure. Y value is ignored if last parameter is set to true.
+                        false,  // Special boundary adjustments for villages. It's... hard to explain. Keep this false and make your pieces not be partially intersecting.
+                        // Either not intersecting or fully contained will make children pieces spawn just fine. It's easier that way.
+                        false // Place at heightmap (top land). Set this to false for structure to be place at the passed in blockpos's Y value instead.
+                        // Definitely keep this false when placing structures in the nether as otherwise, heightmap placing will put the structure on the Bedrock roof.
+                );
+        return structurePiecesGenerator;
     }
 }

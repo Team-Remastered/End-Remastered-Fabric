@@ -1,0 +1,61 @@
+package com.endremastered.endrem.util;
+
+import com.endremastered.endrem.blocks.AncientPortalFrame;
+import com.endremastered.endrem.blocks.ERFrameProperties;
+import com.endremastered.endrem.registry.ERBlocks;
+import com.google.common.collect.ImmutableList;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.util.math.Direction;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Predicate;
+
+public class ERPortalPredicate implements Predicate<BlockState> {
+    private final ImmutableList<Block> VALID_BLOCKS = ImmutableList.of(
+            Blocks.END_PORTAL_FRAME,
+            ERBlocks.ANCIENT_PORTAL_FRAME
+    );
+
+    private final Direction DIRECTION;
+    private ERFrameProperties EXCLUDED_EYE;
+    private boolean REQUIRE_ANCIENT_FRAME = false;
+
+    private ERPortalPredicate(Direction directionIn) {
+        this.DIRECTION = directionIn;
+    }
+
+    public boolean test(@Nullable BlockState blockstate) {
+        if (blockstate != null && this.VALID_BLOCKS.contains(blockstate.getBlock())) {
+            if (blockstate.getBlock() != ERBlocks.ANCIENT_PORTAL_FRAME && this.REQUIRE_ANCIENT_FRAME) {
+                return false;
+            }
+
+            if (blockstate.getBlock().equals(ERBlocks.ANCIENT_PORTAL_FRAME) && this.EXCLUDED_EYE != null) {
+                if (blockstate.get(AncientPortalFrame.EYE).equals(EXCLUDED_EYE)) {
+                    return false;
+                }
+            }
+
+            return blockstate.get(HorizontalFacingBlock.FACING) == this.DIRECTION;
+        } else {
+            return false;
+        }
+    }
+
+    public static ERPortalPredicate facing(Direction direction) {
+        return new ERPortalPredicate(direction);
+    }
+
+    public ERPortalPredicate withoutEye(ERFrameProperties eye) {
+        this.EXCLUDED_EYE = eye;
+        return this;
+    }
+
+    public ERPortalPredicate requireAncientFrame(boolean var) {
+        this.REQUIRE_ANCIENT_FRAME = var;
+        return this;
+    }
+}

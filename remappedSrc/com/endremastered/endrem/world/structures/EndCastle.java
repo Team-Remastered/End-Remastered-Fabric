@@ -6,22 +6,25 @@ import com.endremastered.endrem.world.util.CustomMonsterSpawn;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
-import net.minecraft.structure.*;
+import net.minecraft.structure.MarginedStructureStart;
+import net.minecraft.structure.StructureManager;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.collection.Pool;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.registry.DynamicRegistryManager;
+import net.minecraft.world.HeightLimitView;
 import net.minecraft.world.Heightmap;
-import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.SpawnSettings;
-import net.minecraft.world.gen.StructureAccessor;
+import net.minecraft.world.biome.source.BiomeSource;
+import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+import net.minecraft.world.gen.feature.StructureFeature;
 
 import java.util.List;
-import java.util.Random;
 
 public class EndCastle extends StructureFeature<DefaultFeatureConfig> {
 
@@ -29,7 +32,13 @@ public class EndCastle extends StructureFeature<DefaultFeatureConfig> {
         super(codec);
     }
 
-    protected static boolean isFeatureChunk(StructureGeneratorFactory.Context<StructurePoolFeatureConfig> context) {
+    @Override
+    public StructureFeature.StructureStartFactory<DefaultFeatureConfig> getStructureStartFactory() {
+        return Start::new;
+    }
+
+    @Override
+    protected boolean shouldStartAt(ChunkGenerator chunkGenerator, BiomeSource biomeSource, long seed, ChunkRandom chunkRandom, ChunkPos chunkPos, Biome biome, ChunkPos chunkPos2, DefaultFeatureConfig featureConfig, HeightLimitView heightLimitView) {
         BlockPos centerOfChunk = new BlockPos(chunkPos.x * 16, 0, chunkPos.z * 16);
         int landHeight = chunkGenerator.getHeightInGround(centerOfChunk.getX(), centerOfChunk.getZ(), Heightmap.Type.WORLD_SURFACE_WG, heightLimitView);
         VerticalBlockSample columnOfBlocks = chunkGenerator.getColumnSample(centerOfChunk.getX(), centerOfChunk.getZ(), heightLimitView);
@@ -49,22 +58,23 @@ public class EndCastle extends StructureFeature<DefaultFeatureConfig> {
         return CustomMonsterSpawn.getPoolFromList(STRUCTURE_MONSTERS);
     }
 
-    public static class Start extends StructureStart<DefaultFeatureConfig> {
-        public Start(StructureFeature<DefaultFeatureConfig> structureIn, ChunkPos chunkPos, int referenceIn, StructurePiecesList children) {
-            super(structureIn, chunkPos, referenceIn,children);
+    public static class Start extends MarginedStructureStart<DefaultFeatureConfig> {
+        public Start(StructureFeature<DefaultFeatureConfig> structureIn, ChunkPos chunkPos, int referenceIn, long seedIn) {
+            super(structureIn, chunkPos, referenceIn, seedIn);
         }
 
         @Override
-        public void place(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox chunkBox, ChunkPos chunkPos) {
+        public void init(DynamicRegistryManager registryManager, ChunkGenerator chunkGenerator, StructureManager manager, ChunkPos pos, Biome biome, DefaultFeatureConfig config, HeightLimitView world) {
 
-            BlockRotation rotation = BlockRotation.values()[random.nextInt(BlockRotation.values().length)];
+            BlockRotation rotation = BlockRotation.values()[this.random.nextInt(BlockRotation.values().length)];
 
-            int x = chunkPos.x * 16;
-            int z = chunkPos.z * 16;
+
+            int x = pos.x * 16;
+            int z = pos.z * 16;
             int y = chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG, world);
             BlockPos newPos = new BlockPos(x, y + ERConfig.getData().END_CASTLE.height, z);
-            EndCastlePieces.start(world.getServer().getStructureManager(),  newPos, rotation, this.getChildren());
-            this.getBoundingBox();
+            EndCastlePieces.start(manager, newPos, rotation, this.children);
+            this.setBoundingBoxFromChildren();
         }
     }
 }

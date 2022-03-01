@@ -74,16 +74,16 @@ public class EndCastlePieces {
             super(ERConfiguredStructure.PIECE, 0, manager, template, template.toString(), createPlacementData(rotation), pos);
         }
 
-        public Piece(StructureManager manager, NbtCompound nbt) {
-            super(ERConfiguredStructure.PIECE, nbt, manager, (identifier1 -> createPlacementData(BlockRotation.valueOf(nbt.getString("Rot")))));
+        public Piece(ServerWorld world, NbtCompound nbt) {
+            super(ERConfiguredStructure.PIECE, nbt, world, (identifier1 -> createPlacementData(BlockRotation.valueOf(nbt.getString("Rot")))));
         }
 
         private static StructurePlacementData createPlacementData(BlockRotation rotation) {
             return (new StructurePlacementData()).setRotation(rotation).setMirror(BlockMirror.NONE).addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
         }
 
-        protected void writeNbt(StructureContext context, NbtCompound nbt) {
-            super.writeNbt(context, nbt);
+        protected void writeNbt(ServerWorld world, NbtCompound nbt) {
+            super.writeNbt(world, nbt);
             nbt.putString("Rot", this.placementData.getRotation().name());
         }
 

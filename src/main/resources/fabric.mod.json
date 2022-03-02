@@ -30,6 +30,8 @@
     "endrem.mixins.json"
   ],
 
+  "accessWidener" : "modid.accesswidener",
+
   "depends": {
     "fabricloader": ">=0.13.3",
     "fabric": "*",

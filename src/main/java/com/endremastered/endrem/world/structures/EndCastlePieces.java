@@ -1,15 +1,12 @@
 package com.endremastered.endrem.world.structures;
 
 import com.endremastered.endrem.EndRemastered;
-import com.endremastered.endrem.world.ERStructureConfig.ERConfiguredStructures;
+import com.endremastered.endrem.world.ERStructureConfig.ERStructures;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BarrelBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.structure.*;
-import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
@@ -33,50 +30,38 @@ public class EndCastlePieces {
     public static final Identifier TOP_MID = EndRemastered.createIdentifier("end_castle/castle_tm");
     public static final Identifier MID_MID = EndRemastered.createIdentifier("end_castle/castle_mm");
 
-//    public static void addPieces(StructureManager manager, StructurePiecesHolder structurePiecesHolder,BlockPos pos, Random random) {
-//        BlockRotation blockRotation = BlockRotation.NONE;
-//        System.out.println("BlockRotation Value: " + blockRotation);
-//        structurePiecesHolder.addPiece(new EndCastlePieces.Piece(manager, BOTTOM_LEFT, pos.add(20, height, 24), blockRotation));
-//        structurePiecesHolder.addPiece(new EndCastlePieces.Piece(manager, MID_LEFT, pos.add(-25, height, 24), blockRotation));
-//        structurePiecesHolder.addPiece(new EndCastlePieces.Piece(manager, TOP_LEFT, pos.add(-48, height, 24), blockRotation));
-//        structurePiecesHolder.addPiece(new EndCastlePieces.Piece(manager, BOTTOM_RIGHT, pos.add(20, height, -40), blockRotation));
-//        structurePiecesHolder.addPiece(new EndCastlePieces.Piece(manager, MID_RIGHT, pos.add(-24, height, -47), blockRotation));
-//        structurePiecesHolder.addPiece(new EndCastlePieces.Piece(manager, TOP_RIGHT, pos.add(-48, height, -40), blockRotation));
-//        structurePiecesHolder.addPiece(new EndCastlePieces.Piece(manager, BOTTOM_MID, pos.add(41, height, 0), blockRotation));
-//        structurePiecesHolder.addPiece(new EndCastlePieces.Piece(manager, MID_MID, pos, blockRotation));
-//        structurePiecesHolder.addPiece(new EndCastlePieces.Piece(manager, TOP_MID, pos.add(-48, height, 0), blockRotation));
-//    }
+    private static final Map<Identifier, BlockPos> OFFSET = ImmutableMap.of(
+            BOTTOM_LEFT, new BlockPos(20, height, 24),
+            MID_LEFT, new BlockPos(-25, height, 24),
+            TOP_LEFT, new BlockPos(-48, height, 24),
+            BOTTOM_RIGHT, new BlockPos(20, height, -40),
+            BOTTOM_MID, new BlockPos(41, height, 0),
+            MID_RIGHT, new BlockPos(-24, height, -47),
+            TOP_RIGHT, new BlockPos(-48, height, -40),
+            TOP_MID, new BlockPos(-48, height, 0),
+            MID_MID, new BlockPos(0, height, 0)
+            );
 
-    private static final Map<Identifier, BlockPos> OFFSET = new ImmutableMap.Builder<Identifier, BlockPos>()
-            .put(BOTTOM_LEFT, new BlockPos(20, height, 24))
-            .put(MID_LEFT, new BlockPos(-25, height, 24))
-            .put(TOP_LEFT, new BlockPos(-48, height, 24))
-            .put(BOTTOM_RIGHT, new BlockPos(20, height, -40))
-            .put(BOTTOM_MID, new BlockPos(41, height, 0))
-            .put(MID_RIGHT, new BlockPos(-24, height, -47))
-            .put(TOP_RIGHT, new BlockPos(-48, height, -40))
-            .put(TOP_MID, new BlockPos(-48, height, 0))
-            .put(MID_MID, new BlockPos(0, height, 0))
-            .build();
-
-    public static void start(StructureManager manager, BlockPos pos, BlockRotation rotation, StructurePiecesHolder piecesHolder, Random random) {
+    public static void addPieces(StructureManager manager, BlockPos pos, BlockRotation rotation, StructurePiecesHolder piecesHolder, Random random) {
         for (Map.Entry<Identifier, BlockPos> entry : OFFSET.entrySet()) {
-            piecesHolder.addPiece(new EndCastlePieces.EndCastlePiece(manager, entry.getKey(), entry.getValue().rotate(rotation).add (pos.getX(), pos.getY(), pos.getZ()), rotation, 0));
+            piecesHolder.addPiece(new EndCastlePiece(manager, entry.getKey(), entry.getValue().rotate(rotation).add(pos.getX(), pos.getY(), pos.getZ()), rotation));
         }
     }
 
     public static class EndCastlePiece extends SimpleStructurePiece {
 
-        public EndCastlePiece(StructureManager manager, Identifier template, BlockPos pos, BlockRotation rotation, int p_71248_) {
-            super(ERConfiguredStructures.PIECE, 0, manager, template, template.toString(), createPlacementData(rotation), pos);
+        public EndCastlePiece(StructureManager manager, Identifier identifier, BlockPos pos, BlockRotation rotation) {
+            super(ERStructures.PIECE, 0, manager, identifier, identifier.toString(), createPlacementData(rotation), pos);
         }
 
         public EndCastlePiece(StructureContext context, NbtCompound nbt) {
-            super(ERConfiguredStructures.PIECE, nbt, context.structureManager(), (identifier1 -> createPlacementData(BlockRotation.valueOf(nbt.getString("Rot")))));
+            super(ERStructures.PIECE, nbt, context.structureManager(), (identifier1) ->
+                    createPlacementData(BlockRotation.valueOf(nbt.getString("Rot")))
+            );
         }
 
         private static StructurePlacementData createPlacementData(BlockRotation rotation) {
-            return (new StructurePlacementData()).setRotation(rotation).setMirror(BlockMirror.NONE).addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
+            return (new StructurePlacementData()).setRotation(rotation).setMirror(BlockMirror.NONE);
         }
 
         protected void writeNbt(StructureContext context, NbtCompound nbt) {
@@ -84,16 +69,10 @@ public class EndCastlePieces {
             nbt.putString("Rot", this.placementData.getRotation().name());
         }
 
-        protected void handleMetadata(String metadata, BlockPos pos, ServerWorldAccess serverWorldAccess, Random random, BlockBox boundingBox) {
-            Identifier lootTable = new Identifier(EndRemastered.MOD_ID, String.format("chests/%s", metadata));
+        protected void handleMetadata(String chest, BlockPos pos, ServerWorldAccess serverWorldAccess, Random random, BlockBox boundingBox) {
+            Identifier lootTable = new Identifier(EndRemastered.MOD_ID, String.format("chests/%s", chest));
             serverWorldAccess.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
-            BlockEntity tileentity = serverWorldAccess.getBlockEntity(pos.down());
-            if (tileentity instanceof ChestBlockEntity) {
-                ((ChestBlockEntity) tileentity).setLootTable(lootTable, random.nextLong());
-            }
-            else{
-                ((BarrelBlockEntity) tileentity).setLootTable(lootTable, random.nextLong());
-            }
+            LootableContainerBlockEntity.setLootTable(serverWorldAccess, random, pos.down(), lootTable);
         }
     }
 }

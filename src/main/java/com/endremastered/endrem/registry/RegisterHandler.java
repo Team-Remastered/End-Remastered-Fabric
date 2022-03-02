@@ -23,9 +23,10 @@ public class RegisterHandler {
 
         /* Features */
         OreSpawnHandler.init();
-        ERStructures.setupAndRegisterStructureFeatures();
-        ERConfiguredStructures.registerConfiguredStructures();
         DimensionCheck.removeStructureSpawningFromSelectedDimension();
+        ERStructures.setupAndRegisterStructureFeatures();
+        ERStructures.registerAllPieces();
+        ERConfiguredStructures.registerConfiguredStructures();
         ERProcessors.init();
     }
 

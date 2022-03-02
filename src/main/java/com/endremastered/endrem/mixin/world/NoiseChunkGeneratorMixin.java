@@ -1,7 +1,6 @@
 package com.endremastered.endrem.mixin.world;
 
 
-import com.endremastered.endrem.world.ERStructureConfig.ERConfiguredStructures;
 import com.endremastered.endrem.world.ERStructureConfig.ERStructures;
 import com.endremastered.endrem.world.structures.AncientWitchHut;
 import com.endremastered.endrem.world.structures.EndCastle;
@@ -37,7 +36,7 @@ public class NoiseChunkGeneratorMixin {
             if (accessor.getStructureAt(pos, ERStructures.END_GATE).hasChildren()) {
                 return EndGate.getMonsterSpawns();
             }
-            if (accessor.getStructureAt(pos, ERConfiguredStructures.END_CASTLE).hasChildren()) {
+            if (accessor.getStructureAt(pos, ERStructures.END_CASTLE).hasChildren()) {
                 return EndCastle.getMonsterSpawns();
             }
             if (accessor.getStructureAt(pos, ERStructures.ANCIENT_WITCH_HUT).hasChildren()) {

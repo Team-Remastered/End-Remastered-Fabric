@@ -1,7 +1,5 @@
 package com.endremastered.endrem.mixin.world;
 
-import com.endremastered.endrem.world.ERStructureConfig.ERConfiguredStructure;
-import com.endremastered.endrem.world.structures.ERJigsawStructures;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;

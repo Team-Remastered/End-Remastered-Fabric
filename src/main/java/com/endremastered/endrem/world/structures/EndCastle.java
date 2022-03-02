@@ -9,19 +9,13 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.structure.*;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.collection.Pool;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.Heightmap;
-import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.SpawnSettings;
-import net.minecraft.world.gen.StructureAccessor;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.feature.*;
 
 import java.util.List;
-import java.util.Random;
 
 public class EndCastle extends StructureFeature<DefaultFeatureConfig> {
 

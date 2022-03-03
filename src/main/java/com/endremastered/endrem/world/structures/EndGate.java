@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.structure.*;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
 import net.minecraft.util.collection.Pool;
+import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.ChunkSectionPos;
@@ -23,6 +24,7 @@ import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 public class EndGate extends StructureFeature<StructurePoolFeatureConfig>{
@@ -41,6 +43,12 @@ public class EndGate extends StructureFeature<StructurePoolFeatureConfig>{
         return STRUCTURE_MONSTERS;
     }
 
+
+    private BlockPos getLocatedRoom(StructureStart<?> structureStart) {
+        List<StructurePiece> structurePieces = structureStart.getChildren();
+        BlockBox bbox = structurePieces.get(Math.min(16, structurePieces.size()) - 1).getBoundingBox();
+        return new BlockPos(bbox.getMinX(), bbox.getMinY(), bbox.getMinZ());
+    }
 
     @Nullable
     @Override
@@ -62,7 +70,7 @@ public class EndGate extends StructureFeature<StructurePoolFeatureConfig>{
                         StructurePresence structurePresence = structureAccessor.getStructurePresence(chunkPos, this, skipExistingChunks);
                         if (structurePresence != StructurePresence.START_NOT_PRESENT) {
                             if (!skipExistingChunks && structurePresence == StructurePresence.START_PRESENT) {
-                                return this.getLocatedPos(chunkPos);
+                                return this.getLocatedRoom(world.getChunk(chunkPos.x, chunkPos.z, ChunkStatus.STRUCTURE_STARTS).getStructureStart(this));
                             }
                             Chunk chunk = world.getChunk(chunkPos.x, chunkPos.z, ChunkStatus.STRUCTURE_STARTS);
                             StructureStart<?> structureStart = structureAccessor.getStructureStart(ChunkSectionPos.from(chunk), this, chunk);
@@ -73,10 +81,10 @@ public class EndGate extends StructureFeature<StructurePoolFeatureConfig>{
                                 }
 
                                 if (!skipExistingChunks) {
-                                    return this.getLocatedPos(structureStart.getPos());
+                                    return this.getLocatedRoom(structureStart);
                                 }
                             if (!skipExistingChunks) {
-                                return this.getLocatedPos(structureStart.getPos());
+                                return this.getLocatedRoom(structureStart);
                             }
                         }
 
@@ -100,10 +108,9 @@ public class EndGate extends StructureFeature<StructurePoolFeatureConfig>{
     }
 
     public static Optional<StructurePiecesGenerator<StructurePoolFeatureConfig>> createPiecesGenerator(StructureGeneratorFactory.Context<StructurePoolFeatureConfig> context) {
-
         // Check if the spot is valid for our structure. This is just as another method for cleanness.
         // Returning an empty optional tells the game to skip this spot as it will not generate the structure.
-        if (!AncientWitchHut.isFeatureChunk(context)) {
+        if (!EndGate.isFeatureChunk(context)) {
             return Optional.empty();
         }
 

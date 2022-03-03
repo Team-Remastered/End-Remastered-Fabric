@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MultiLocator {
     public List<String> getStructureList() {
-        return ERConfig.getData().ER_MAP.structureList;
+        return ERConfig.getData().ER_EYES.structureList;
     }
 
     public BlockPos getNearestPosition(ServerWorld serverWorld, BlockPos playerPos) {

@@ -15,7 +15,7 @@ public class ChunkGeneratorMixin {
             at = @At(value = "HEAD"),
             cancellable = true)
     private void removeVanillaStronghold(CallbackInfo ci) {
-        if (ERConfig.getData().STRONGHOLDS_ENABLED)ci.cancel();
+        if (!ERConfig.getData().STRONGHOLDS_ENABLED)ci.cancel();
     }
 }
 

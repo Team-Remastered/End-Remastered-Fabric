@@ -22,36 +22,42 @@ public class ERConfiguredStructures {
         Registry<ConfiguredStructureFeature<?, ?>> registry = BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE;
 
         /* End Gate */
-        Registry.register(registry, EndRemastered.createIdentifier("configured_end_gate"), CONFIGURED_END_GATE);
-        BiomeModifications.create(EndRemastered.createIdentifier("end_gate_addition"))
-                .add(ModificationPhase.ADDITIONS, BiomeSelectors.includeByKey(ERConfig.getData().END_GATE.getProcessedBiomeWhitelist()),
-                        context -> {
-                            context.getGenerationSettings().addBuiltInStructure(ERConfiguredStructures.CONFIGURED_END_GATE);
-                        }).add(ModificationPhase.REMOVALS, BiomeSelectors.includeByKey(ERConfig.getData().END_GATE.getProcessedBiomeBlacklist()),
-                        context -> {
-                            context.getGenerationSettings().removeBuiltInStructure(CONFIGURED_END_GATE);
-                        });
+        if(ERConfig.getData().END_GATE.enabled) {
+            Registry.register(registry, EndRemastered.createIdentifier("configured_end_gate"), CONFIGURED_END_GATE);
+            BiomeModifications.create(EndRemastered.createIdentifier("end_gate_addition"))
+                    .add(ModificationPhase.ADDITIONS, BiomeSelectors.includeByKey(ERConfig.getData().END_GATE.getProcessedBiomeWhitelist()),
+                            context -> {
+                                context.getGenerationSettings().addBuiltInStructure(ERConfiguredStructures.CONFIGURED_END_GATE);
+                            }).add(ModificationPhase.REMOVALS, BiomeSelectors.includeByKey(ERConfig.getData().END_GATE.getProcessedBiomeBlacklist()),
+                            context -> {
+                                context.getGenerationSettings().removeBuiltInStructure(CONFIGURED_END_GATE);
+                            });
+        }
 
         /* Witch Hut */
-        Registry.register(registry, EndRemastered.createIdentifier("configured_ancient_witch_hut"), CONFIGURED_ANCIENT_WITCH_HUT);
-        BiomeModifications.create(EndRemastered.createIdentifier("ancient_witch_hut_addition"))
-                .add(ModificationPhase.ADDITIONS, BiomeSelectors.includeByKey(ERConfig.getData().ANCIENT_WITCH_HUT.getProcessedBiomeWhitelist()),
-                        context -> {
-                            context.getGenerationSettings().addBuiltInStructure(ERConfiguredStructures.CONFIGURED_ANCIENT_WITCH_HUT);
-                        }).add(ModificationPhase.REMOVALS, BiomeSelectors.includeByKey(ERConfig.getData().ANCIENT_WITCH_HUT.getProcessedBiomeBlacklist()),
-                        context -> {
-                            context.getGenerationSettings().removeBuiltInStructure(CONFIGURED_ANCIENT_WITCH_HUT);
-                        });
+        if(ERConfig.getData().ANCIENT_WITCH_HUT.enabled) {
+            Registry.register(registry, EndRemastered.createIdentifier("configured_ancient_witch_hut"), CONFIGURED_ANCIENT_WITCH_HUT);
+            BiomeModifications.create(EndRemastered.createIdentifier("ancient_witch_hut_addition"))
+                    .add(ModificationPhase.ADDITIONS, BiomeSelectors.includeByKey(ERConfig.getData().ANCIENT_WITCH_HUT.getProcessedBiomeWhitelist()),
+                            context -> {
+                                context.getGenerationSettings().addBuiltInStructure(ERConfiguredStructures.CONFIGURED_ANCIENT_WITCH_HUT);
+                            }).add(ModificationPhase.REMOVALS, BiomeSelectors.includeByKey(ERConfig.getData().ANCIENT_WITCH_HUT.getProcessedBiomeBlacklist()),
+                            context -> {
+                                context.getGenerationSettings().removeBuiltInStructure(CONFIGURED_ANCIENT_WITCH_HUT);
+                            });
+        }
 
         /* End Castle */
-        Registry.register(registry, EndRemastered.createIdentifier("configured_end_castle"), CONFIGURED_END_CASTLE);
-        BiomeModifications.create(EndRemastered.createIdentifier("end_castle_addition"))
-                .add(ModificationPhase.ADDITIONS, BiomeSelectors.includeByKey(ERConfig.getData().END_CASTLE.getProcessedBiomeWhitelist()),
-                        context -> {
-                            context.getGenerationSettings().addBuiltInStructure(ERConfiguredStructures.CONFIGURED_END_CASTLE);
-                        }).add(ModificationPhase.REMOVALS, BiomeSelectors.includeByKey(ERConfig.getData().END_CASTLE.getProcessedBiomeBlacklist()),
-                        context -> {
-                            context.getGenerationSettings().removeBuiltInStructure(CONFIGURED_END_CASTLE);
-                        });
+        if(ERConfig.getData().END_CASTLE.enabled) {
+            Registry.register(registry, EndRemastered.createIdentifier("configured_end_castle"), CONFIGURED_END_CASTLE);
+            BiomeModifications.create(EndRemastered.createIdentifier("end_castle_addition"))
+                    .add(ModificationPhase.ADDITIONS, BiomeSelectors.includeByKey(ERConfig.getData().END_CASTLE.getProcessedBiomeWhitelist()),
+                            context -> {
+                                context.getGenerationSettings().addBuiltInStructure(ERConfiguredStructures.CONFIGURED_END_CASTLE);
+                            }).add(ModificationPhase.REMOVALS, BiomeSelectors.includeByKey(ERConfig.getData().END_CASTLE.getProcessedBiomeBlacklist()),
+                            context -> {
+                                context.getGenerationSettings().removeBuiltInStructure(CONFIGURED_END_CASTLE);
+                            });
+        }
     }
 }

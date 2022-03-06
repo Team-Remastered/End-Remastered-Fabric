@@ -8,6 +8,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.structure.*;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.collection.Pool;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -49,7 +50,7 @@ public class AncientWitchHut extends StructureFeature<StructurePoolFeatureConfig
         BlockState topBlock = columnOfBlocks.getState(landHeight);
         // Now we test to make sure our structure is not spawning on water or other fluids.
         // You can do height check instead too to make it spawn at high elevations.
-        return ERUtils.getChunkDistanceFromSpawn(context.chunkPos()) >= ERConfig.getData().ANCIENT_WITCH_HUT.spawnDistance && topBlock.getFluidState().isEmpty();
+        return ERUtils.getChunkDistanceFromSpawn(context.chunkPos()) >= ERConfig.getData().ANCIENT_WITCH_HUT.spawnDistance && topBlock.getFluidState().isIn(FluidTags.WATER);
     }
 
     public static Optional<StructurePiecesGenerator<StructurePoolFeatureConfig>> createPiecesGenerator(StructureGeneratorFactory.Context<StructurePoolFeatureConfig> context) {

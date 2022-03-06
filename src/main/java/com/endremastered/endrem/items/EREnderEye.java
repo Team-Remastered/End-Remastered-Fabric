@@ -122,7 +122,7 @@ public class EREnderEye extends Item {
         } else {
             playerIn.setCurrentHand(handIn);
             if (worldIn instanceof ServerWorld) {
-                BlockPos blockpos = RegisterHandler.EYE_ML.getNearestPosition((ServerWorld) worldIn, playerIn.getBlockPos());
+                BlockPos blockpos = RegisterHandler.EYE_ML.getNearestPositionEyes((ServerWorld) worldIn, playerIn.getBlockPos());
                 if (blockpos != null) {
                     EyeOfEnderEntity eyeOfEnderEntity = new EyeOfEnderEntity(worldIn, playerIn.getX(), playerIn.getBodyY(0.5D), playerIn.getZ());
                     eyeOfEnderEntity.setItem(itemstack);

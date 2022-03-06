@@ -36,7 +36,7 @@ public class ERMap {
     public static ItemStack createMap(ServerWorld serverWorld, BlockPos playerPosition) {
 
         // Get position of marker
-        BlockPos structurePos = RegisterHandler.MAP_ML.getNearestPosition(serverWorld, playerPosition);
+        BlockPos structurePos = RegisterHandler.MAP_ML.getNearestPositionMap(serverWorld, playerPosition);
 
         // Create map
         ItemStack stack = FilledMapItem.createMap(serverWorld, structurePos.getX(), structurePos.getZ(), (byte) 2, true, true);

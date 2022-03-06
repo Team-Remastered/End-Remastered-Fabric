@@ -35,7 +35,7 @@ public class OreSpawnHandler {
                     ERBlocks.END_CRYSTAL_ORE.getDefaultState(),
                     3, 0));
 
-    public static PlacedFeature END_CRYSTAL_ORE_GEN_POLISHED_BLACKSTONE_BRICKS_PLACED_FEATURE = END_CRYSTAL_ORE_GEN_BLACKSTONE.withPlacement(
+    public static PlacedFeature END_CRYSTAL_ORE_GEN_POLISHED_BLACKSTONE_BRICKS_PLACED_FEATURE = END_CRYSTAL_ORE_GEN_POLISHED_BLACKSTONE_BRICKS.withPlacement(
             CountPlacementModifier.of(20),
             SquarePlacementModifier.of(),
             HeightRangePlacementModifier.uniform(YOffset.getBottom(), YOffset.fixed(100)));
@@ -45,7 +45,7 @@ public class OreSpawnHandler {
                     ERBlocks.END_CRYSTAL_ORE.getDefaultState(),
                     3, 0));
 
-    public static PlacedFeature END_CRYSTAL_ORE_GEN_CRACKED_POLISHED_BLACKSTONE_BRICKS_PLACED_FEATURE = END_CRYSTAL_ORE_GEN_BLACKSTONE.withPlacement(
+    public static PlacedFeature END_CRYSTAL_ORE_GEN_CRACKED_POLISHED_BLACKSTONE_BRICKS_PLACED_FEATURE = END_CRYSTAL_ORE_GEN_CRACKED_POLISHED_BLACKSTONE_BRICKS.withPlacement(
             CountPlacementModifier.of(20),
             SquarePlacementModifier.of(),
             HeightRangePlacementModifier.uniform(YOffset.getBottom(), YOffset.fixed(100)));

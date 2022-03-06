@@ -27,7 +27,6 @@ public class ERStructures {
         FabricStructureBuilder.create(EndRemastered.createIdentifier("end_castle"), END_CASTLE)
                 .step(GenerationStep.Feature.SURFACE_STRUCTURES)
                 .defaultConfig(new StructureConfig(ERConfig.getData().END_CASTLE.averageDistance, ERConfig.getData().END_CASTLE.averageDistance - 30, 543453455))
-                .adjustsSurface()
                 .register();
 
         /*END GATE*/

@@ -5,17 +5,24 @@ import com.endremastered.endrem.util.ERUtils;
 import com.endremastered.endrem.world.util.CustomMonsterSpawn;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.structure.*;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.collection.Pool;
+import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.Heightmap;
+import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.SpawnSettings;
+import net.minecraft.world.gen.StructureAccessor;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.feature.*;
 
 import java.util.List;
+import java.util.Random;
 
 public class EndCastle extends StructureFeature<DefaultFeatureConfig> {
     private static final List<CustomMonsterSpawn> STRUCTURE_MONSTERS = List.of(
@@ -26,7 +33,7 @@ public class EndCastle extends StructureFeature<DefaultFeatureConfig> {
     );
 
     public EndCastle(Codec<DefaultFeatureConfig> codec) {
-        super(codec, StructureGeneratorFactory.simple(StructureGeneratorFactory.checkForBiomeOnTop(Heightmap.Type.WORLD_SURFACE_WG), EndCastle::addPieces));
+        super(codec, StructureGeneratorFactory.simple(StructureGeneratorFactory.checkForBiomeOnTop(Heightmap.Type.WORLD_SURFACE_WG), EndCastle::addPieces), EndCastle::postPlace);
     }
 
     protected static boolean isFeatureChunk(StructurePiecesGenerator.Context<DefaultFeatureConfig> context) {
@@ -72,4 +79,43 @@ public class EndCastle extends StructureFeature<DefaultFeatureConfig> {
             BlockPos newPos = new BlockPos(x, y + ERConfig.getData().END_CASTLE.height, z);
             EndCastlePieces.addPieces(context.structureManager(), newPos, rotation, collector, context.random());
         }
+
+    private static void postPlace(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox chunkBox, ChunkPos chunkPos, StructurePiecesList children) {
+        BlockPos.Mutable mutable = new BlockPos.Mutable();
+        int i = world.getBottomY();
+        BlockBox blockBox = children.getBoundingBox();
+        int j = blockBox.getMinY();
+
+        for(int k = chunkBox.getMinX(); k <= chunkBox.getMaxX(); ++k) {
+            for(int l = chunkBox.getMinZ(); l <= chunkBox.getMaxZ(); ++l) {
+                mutable.set(k, j, l);
+                if (!world.isAir(mutable) && blockBox.contains(mutable) && children.contains(mutable)) {
+                    for(int m = j - 1; m > i; --m) {
+                        mutable.setY(m);
+                        if (!world.isAir(mutable) && !world.getBlockState(mutable).getMaterial().isLiquid()) {
+                            break;
+                        }
+                        double randomBlock = Math.random();
+                        System.out.println(randomBlock + "Random block number");
+                        if (randomBlock <= 0.05) {
+                            world.setBlockState(mutable, Blocks.STONE.getDefaultState(), 2);
+                        } else if (randomBlock <= 0.1) {
+                            world.setBlockState(mutable, Blocks.COBBLESTONE.getDefaultState(), 2);
+                        } else if (randomBlock <= 0.2) {
+                            world.setBlockState(mutable, Blocks.ANDESITE.getDefaultState(), 2);
+                        } else if (randomBlock <= 0.3) {
+                            world.setBlockState(mutable, Blocks.STONE_BRICKS.getDefaultState(), 2);
+                        } else if (randomBlock <= 0.4) {
+                            world.setBlockState(mutable, Blocks.CRACKED_STONE_BRICKS.getDefaultState(), 2);
+                        } else if (randomBlock <= 0.5) {
+                            world.setBlockState(mutable, Blocks.ANDESITE.getDefaultState(), 2);
+                        } else {
+                            world.setBlockState(mutable, Blocks.POLISHED_ANDESITE.getDefaultState(), 2);
+                        }
+                    }
+                }
+            }
+        }
+
     }
+}

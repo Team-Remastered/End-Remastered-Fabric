@@ -96,7 +96,6 @@ public class EndCastle extends StructureFeature<DefaultFeatureConfig> {
                             break;
                         }
                         double randomBlock = Math.random();
-                        System.out.println(randomBlock + "Random block number");
                         if (randomBlock <= 0.05) {
                             world.setBlockState(mutable, Blocks.STONE.getDefaultState(), 2);
                         } else if (randomBlock <= 0.1) {

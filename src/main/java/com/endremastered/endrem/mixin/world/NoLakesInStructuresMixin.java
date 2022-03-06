@@ -18,7 +18,6 @@ public class NoLakesInStructuresMixin {
 
         if (context.getWorld().getStructures(chunkPos, ERStructures.END_GATE).stream().findAny().isPresent() || context.getWorld().getStructures(chunkPos, ERStructures.END_CASTLE).stream().findAny().isPresent()) {
             cir.setReturnValue(false);
-            System.out.println("NO LAKE IN THE STRUCTURE");
         }
     }
 }

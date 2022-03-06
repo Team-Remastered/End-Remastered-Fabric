@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class NoFluidsInStructuresMixin {
 
     @Inject(
-            method = "generate(Lnet/net/minecraft/world/gen/feature/util/FeatureContext;)Z",
+            method = "generate(Lnet/minecraft/world/gen/feature/util/FeatureContext;)Z",
             at = @At(value = "HEAD"),
             cancellable = true
     )
@@ -28,7 +28,6 @@ public class NoFluidsInStructuresMixin {
                 mutable.set(context.getOrigin()).move(face);
                 ChunkSectionPos sectionPos = ChunkSectionPos.from(context.getOrigin());
                 if (!context.getWorld().getStructures(sectionPos, ERStructures.END_CASTLE).isEmpty() || !context.getWorld().getStructures(sectionPos, ERStructures.END_GATE).isEmpty()) {
-                    System.out.println("NO FLUIDS IN STRUCTURE");
                     cir.setReturnValue(false);
                 }
             }

@@ -45,8 +45,7 @@ public enum ERFrameProperties implements StringIdentifiable {
 
         for (ERFrameProperties property : ERFrameProperties.values()) {
             // match the serialized name of the property to the item name of the eye
-            assert eye.asItem() != null;
-            if (property.toString().equals(eye.asItem().toString().split(":")[1])) {
+            if (property.asString().equals(eye.toString())) {
                 return property;
             }
         }
@@ -54,3 +53,5 @@ public enum ERFrameProperties implements StringIdentifiable {
         return EMPTY;
     }
 }
+
+

@@ -37,6 +37,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 public class EREnderEye extends Item {
@@ -49,8 +50,10 @@ public class EREnderEye extends Item {
         tooltip.add(new TranslatableText(String.format("item.endrem.%s.description", this.asItem().toString())));
     }
 
-    /* Action when used on a frame */
     @Override
+    @ParametersAreNonnullByDefault
+
+    /* Action when used on a frame */
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
         BlockPos blockpos = context.getBlockPos();

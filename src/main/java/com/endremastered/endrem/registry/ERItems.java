@@ -23,6 +23,12 @@ public class ERItems {
     public static final Item NETHER_EYE = new EREnderEye();
     public static final Item OLD_EYE = new EREnderEye();
     public static final Item ROGUE_EYE = new EREnderEye();
+    public static final Item CURSED_EYE = new EREnderEye();
+    public static final Item EVIL_EYE = new EREnderEye();
+
+
+
+
 
     /* Entities */
     public static final Item GUARDIAN_EYE = new EREnderEye();
@@ -31,10 +37,16 @@ public class ERItems {
 
     /* Craftable */
     public static final Item WITCH_EYE = new EREnderEye();
+    public static final Item UNDEAD_EYE = new EREnderEye();
+    public static final Item EXOTIC_EYE = new EREnderEye();
 
+    /* ??? */
+
+    public static final Item CRYPTIC_EYE = new EREnderEye();
 
     // === Miscellaneous ===
     public static final Item WITCH_PUPIL = new Item(new FabricItemSettings().group(EndRemastered.ENDREM_TAB));
+    public static final Item UNDEAD_SOUL = new Item(new FabricItemSettings().group(EndRemastered.ENDREM_TAB));
 
 
     public static void initRegister() {
@@ -46,6 +58,8 @@ public class ERItems {
         registerItem("nether_eye", NETHER_EYE);
         registerItem("old_eye", OLD_EYE);
         registerItem("rogue_eye", ROGUE_EYE);
+        registerItem("cursed_eye", CURSED_EYE);
+        registerItem("evil_eye", EVIL_EYE);
 
         /* Entities Eyes */
         registerItem("guardian_eye", GUARDIAN_EYE);
@@ -54,8 +68,14 @@ public class ERItems {
 
         /* Craftable Eyes */
         registerItem("witch_eye", WITCH_EYE);
+        registerItem("undead_eye", UNDEAD_EYE);
+        registerItem("exotic_eye", EXOTIC_EYE);
+
+        /* ??? */
+        registerItem("cryptic_eye", CRYPTIC_EYE);
 
         /* Miscellaneous */
         registerItem("witch_pupil", WITCH_PUPIL);
+        registerItem("undead_soul", UNDEAD_SOUL);
     }
 }

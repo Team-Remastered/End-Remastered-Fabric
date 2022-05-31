@@ -16,7 +16,12 @@ public enum ERFrameProperties implements StringIdentifiable {
     WITHER_EYE,
     END_CRYSTAL_EYE,
     GUARDIAN_EYE,
-    WITCH_EYE;
+    WITCH_EYE,
+    CURSED_EYE,
+    EXOTIC_EYE,
+    EVIL_EYE,
+    UNDEAD_EYE,
+    CRYPTIC_EYE;
 
     @Override
     public String asString() {
@@ -38,6 +43,11 @@ public enum ERFrameProperties implements StringIdentifiable {
             case END_CRYSTAL_EYE -> "end_crystal_eye";
             case GUARDIAN_EYE -> "guardian_eye";
             case WITCH_EYE -> "witch_eye";
+            case CURSED_EYE -> "cursed_eye";
+            case EXOTIC_EYE -> "exotic_eye";
+            case EVIL_EYE -> "evil_eye";
+            case UNDEAD_EYE -> "undead_eye";
+            case CRYPTIC_EYE -> "cryptic_eye";
         };
     }
 

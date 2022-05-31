@@ -25,6 +25,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.tag.ConfiguredStructureFeatureTags;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
@@ -122,7 +123,8 @@ public class EREnderEye extends Item {
         } else {
             playerIn.setCurrentHand(handIn);
             if (worldIn instanceof ServerWorld) {
-                BlockPos blockpos = RegisterHandler.EYE_ML.getNearestPosition((ServerWorld) worldIn, playerIn.getBlockPos());
+                ServerWorld serverWorld = (ServerWorld)worldIn;
+                BlockPos blockpos = serverWorld.locateStructure(ConfiguredStructureFeatureTags.EYE_OF_ENDER_LOCATED, playerIn.getBlockPos(), 100, false);
                 if (blockpos != null) {
                     EyeOfEnderEntity eyeOfEnderEntity = new EyeOfEnderEntity(worldIn, playerIn.getX(), playerIn.getBodyY(0.5D), playerIn.getZ());
                     eyeOfEnderEntity.setItem(itemstack);

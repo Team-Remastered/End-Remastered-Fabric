@@ -6,11 +6,7 @@
   "mixins": [
     "EnderEyeItemMixin",
     "accessor.EyeOfEnderEntityAccessorMixin",
-    "accessor.PlayerEntityAccessorMixin",
-    "accessor.StructuresConfigAccessorMixin",
-    "world.ChunkGeneratorMixin",
-    "world.NoiseChunkGeneratorMixin",
-    "world.NoLakesInStructuresMixin"
+    "accessor.PlayerEntityAccessorMixin"
   ],
   "client": [
   ],

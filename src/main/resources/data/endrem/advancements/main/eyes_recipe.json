@@ -1,13 +1,13 @@
 {
   "criteria": {
-    "witch_pupil": {
+    "eyes": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "endrem:witch_pupil"
-              ]
+              "minecraft:ender_eye"
+            ]
           }
         ]
       }
@@ -15,12 +15,13 @@
   },
   "rewards": {
     "recipes": [
-      "endrem:witch_eye"
+      "endrem:witch_eye",
+      "endrem:exotic_eye"
     ]
   },
   "requirements": [
     [
-      "witch_pupil"
+      "eyes"
     ]
   ]
 }

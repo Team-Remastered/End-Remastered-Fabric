@@ -1,10 +1,11 @@
 package com.endremastered.endrem.mixin;
 
-import com.endremastered.endrem.config.ERConfig;
+import com.endremastered.endrem.config.ERConfigHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnderEyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -22,9 +23,9 @@ public class EnderEyeItemMixin {
         at = @At(value = "HEAD"),
         cancellable = true)
     private void DisableUsingEnderEyes(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
-
-        if (ERConfig.getData().ENDER_EYES_ENABLED) {
+        if (!ERConfigHandler.ENABLE_EYE_OF_ENDER) {
             cir.setReturnValue(ActionResult.PASS);
+            context.getPlayer().sendMessage(new TranslatableText("block.endrem.ender_eye.warning"), true);
         }
     }
 
@@ -32,9 +33,10 @@ public class EnderEyeItemMixin {
         at = @At(value = "HEAD"),
         cancellable = true)
     private void DisableThrowingEnderEyes(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
-        if (ERConfig.getData().ENDER_EYES_ENABLED) {
+        if (!ERConfigHandler.ENABLE_EYE_OF_ENDER) {
             ItemStack itemStack = user.getStackInHand(hand);
             cir.setReturnValue(TypedActionResult.pass(itemStack));
+            user.sendMessage(new TranslatableText("block.endrem.ender_eye.warning"), true);
         }
     }
 }

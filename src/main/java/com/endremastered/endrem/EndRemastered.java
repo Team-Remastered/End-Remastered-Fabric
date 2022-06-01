@@ -1,6 +1,6 @@
 package com.endremastered.endrem;
 
-import com.endremastered.endrem.config.ERConfig;
+import com.endremastered.endrem.config.ERConfigHandler;
 import com.endremastered.endrem.registry.ERItems;
 import com.endremastered.endrem.registry.RegisterHandler;
 import net.fabricmc.api.ModInitializer;
@@ -11,8 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.List;
 
 
 public class EndRemastered implements ModInitializer {
@@ -33,7 +31,7 @@ public class EndRemastered implements ModInitializer {
         // Register Config
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             System.out.println("PREPARING FOR RELOAD");
-            ERConfig.load();
+            ERConfigHandler.load();
         });
     }
 }

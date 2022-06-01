@@ -2,12 +2,11 @@ package com.endremastered.endrem.items;
 
 import com.endremastered.endrem.EndRemastered;
 import com.endremastered.endrem.blocks.AncientPortalFrame;
-import com.endremastered.endrem.config.ERConfig;
+import com.endremastered.endrem.config.ERConfigHandler;
 import com.endremastered.endrem.mixin.accessor.EyeOfEnderEntityAccessorMixin;
 import com.endremastered.endrem.mixin.accessor.PlayerEntityAccessorMixin;
 import com.endremastered.endrem.blocks.ERFrameProperties;
 import com.endremastered.endrem.registry.ERBlocks;
-import com.endremastered.endrem.registry.RegisterHandler;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
@@ -98,6 +97,7 @@ public class EREnderEye extends Item {
                 }
                 return ActionResult.CONSUME;
             }
+            context.getPlayer().sendMessage(new TranslatableText("block.endrem.custom_eye.place"), true);
             return ActionResult.PASS;
         } else if (blockstate.isOf(Blocks.END_PORTAL_FRAME)) {
             BlockState newBlockState = blockstate.with(EndPortalFrameBlock.EYE, false);
@@ -105,6 +105,7 @@ public class EREnderEye extends Item {
             world.spawnEntity(new ItemEntity(world, blockpos.getX(), blockpos.getY() + 1, blockpos.getZ(), new ItemStack(Items.ENDER_EYE)));
             return ActionResult.SUCCESS;
         } else {
+            context.getPlayer().sendMessage(new TranslatableText("block.endrem.custom_eye.frame_has_eye"), true);
             return ActionResult.PASS;
         }
     }
@@ -132,7 +133,7 @@ public class EREnderEye extends Item {
                     EyeOfEnderEntity eyeOfEnderEntity = new EyeOfEnderEntity(worldIn, playerIn.getX(), playerIn.getBodyY(0.5D), playerIn.getZ());
                     eyeOfEnderEntity.setItem(itemstack);
                     eyeOfEnderEntity.initTargetPos(blockpos);
-                    ((EyeOfEnderEntityAccessorMixin) eyeOfEnderEntity).setDropsItem(ERConfig.getData().ER_EYES.breakProbability <= playerIn.getRandom().nextInt(100));
+                    ((EyeOfEnderEntityAccessorMixin) eyeOfEnderEntity).setDropsItem(ERConfigHandler.EYE_BREAK_PROBABILITY <= playerIn.getRandom().nextInt(100));
 
                     worldIn.spawnEntity(eyeOfEnderEntity);
                     if (playerIn instanceof ServerPlayerEntity) {

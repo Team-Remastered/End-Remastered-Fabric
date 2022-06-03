@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "EnderEyeItemMixin",
+    "PlayerEnchantMixin",
     "accessor.EyeOfEnderEntityAccessorMixin",
     "accessor.PlayerEntityAccessorMixin"
   ],

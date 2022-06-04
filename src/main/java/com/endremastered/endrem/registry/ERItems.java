@@ -3,8 +3,8 @@ package com.endremastered.endrem.registry;
 import com.endremastered.endrem.EndRemastered;
 import com.endremastered.endrem.items.EREnderEye;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
 public class ERItems {
@@ -16,33 +16,33 @@ public class ERItems {
     // ==== Eyes ====
 
     /* Chests */
-    public static final Item BLACK_EYE = new EREnderEye();
-    public static final Item COLD_EYE = new EREnderEye();
-    public static final Item CORRUPTED_EYE = new EREnderEye();
-    public static final Item LOST_EYE = new EREnderEye();
-    public static final Item NETHER_EYE = new EREnderEye();
-    public static final Item OLD_EYE = new EREnderEye();
-    public static final Item ROGUE_EYE = new EREnderEye();
-    public static final Item CURSED_EYE = new EREnderEye();
-    public static final Item EVIL_EYE = new EREnderEye();
+    public static final Item BLACK_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.COMMON).group(EndRemastered.ENDREM_TAB));
+    public static final Item COLD_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.RARE).group(EndRemastered.ENDREM_TAB));
+    public static final Item CORRUPTED_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.COMMON).group(EndRemastered.ENDREM_TAB));
+    public static final Item LOST_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.COMMON).group(EndRemastered.ENDREM_TAB));
+    public static final Item NETHER_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.RARE).group(EndRemastered.ENDREM_TAB));
+    public static final Item OLD_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.COMMON).group(EndRemastered.ENDREM_TAB));
+    public static final Item ROGUE_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.RARE).group(EndRemastered.ENDREM_TAB));
+    public static final Item CURSED_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.COMMON).group(EndRemastered.ENDREM_TAB));
+    public static final Item EVIL_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.RARE).group(EndRemastered.ENDREM_TAB));
 
 
 
 
 
     /* Entities */
-    public static final Item GUARDIAN_EYE = new EREnderEye();
-    public static final Item MAGICAL_EYE = new EREnderEye();
-    public static final Item WITHER_EYE = new EREnderEye();
+    public static final Item GUARDIAN_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.RARE).group(EndRemastered.ENDREM_TAB));
+    public static final Item MAGICAL_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.RARE).group(EndRemastered.ENDREM_TAB));
+    public static final Item WITHER_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.EPIC).group(EndRemastered.ENDREM_TAB));
 
     /* Craftable */
-    public static final Item WITCH_EYE = new EREnderEye();
-    public static final Item UNDEAD_EYE = new EREnderEye();
-    public static final Item EXOTIC_EYE = new EREnderEye();
+    public static final Item WITCH_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.COMMON).group(EndRemastered.ENDREM_TAB));
+    public static final Item UNDEAD_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.EPIC).group(EndRemastered.ENDREM_TAB));
+    public static final Item EXOTIC_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.RARE).group(EndRemastered.ENDREM_TAB));
 
     /* ??? */
 
-    public static final Item CRYPTIC_EYE = new EREnderEye();
+    public static final Item CRYPTIC_EYE = new EREnderEye(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.EPIC));
 
     // === Miscellaneous ===
     public static final Item WITCH_PUPIL = new Item(new FabricItemSettings().group(EndRemastered.ENDREM_TAB));

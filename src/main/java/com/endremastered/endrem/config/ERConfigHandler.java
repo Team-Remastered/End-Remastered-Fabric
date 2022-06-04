@@ -17,7 +17,7 @@ public class ERConfigHandler {
     private static Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
     public static boolean ENABLE_EYE_OF_ENDER = false;
-    public static int EYE_BREAK_PROBABILITY = 0;
+    public static int EYE_BREAK_PROBABILITY = 10;
 
     public static void load() {
 
@@ -74,7 +74,7 @@ public class ERConfigHandler {
 
             private Common() {
                 ENABLE_EYE_OF_ENDER = false;
-                EYE_BREAK_PROBABILITY = 0;
+                EYE_BREAK_PROBABILITY = 10;
             }
 
             private Common(boolean ENABLE_EYE_OF_ENDER, int EYE_BREAK_PROBABILITY) {

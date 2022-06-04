@@ -40,13 +40,14 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 public class EREnderEye extends Item {
-    public EREnderEye() {
-        super(new FabricItemSettings().fireproof().maxCount(16).rarity(Rarity.EPIC).group(EndRemastered.ENDREM_TAB));
+    public EREnderEye(FabricItemSettings settings) {
+        super(settings);
     }
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(new TranslatableText(String.format("item.endrem.%s.description", this.asItem().toString())));
+        String translationKey= String.format("item.%s.%s.description", EndRemastered.MOD_ID, this.asItem());
+        tooltip.add(new TranslatableText(translationKey));
     }
 
     @Override

@@ -113,6 +113,7 @@ public class LootInjection {
             else if (WITHER_LOOT_TABLE_ID.equals(id)) {
                 FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
                         .rolls(ConstantLootNumberProvider.create(2.0F))
+                        .conditionally(RandomChanceLootCondition.builder(0.9F))
                         .with(ItemEntry.builder(ERItems.WITHER_EYE));
                 table.pool(poolBuilder);
             }

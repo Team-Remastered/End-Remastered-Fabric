@@ -15,21 +15,16 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EyeOfEnderEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.tag.ConfiguredStructureFeatureTags;
+import net.minecraft.tag.StructureTags;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Rarity;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -47,7 +42,7 @@ public class EREnderEye extends Item {
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         String translationKey= String.format("item.%s.%s.description", EndRemastered.MOD_ID, this.asItem());
-        tooltip.add(new TranslatableText(translationKey));
+        tooltip.add(Text.translatable(translationKey));
     }
 
     @Override
@@ -98,7 +93,7 @@ public class EREnderEye extends Item {
                 }
                 return ActionResult.CONSUME;
             }
-            context.getPlayer().sendMessage(new TranslatableText("block.endrem.custom_eye.place"), true);
+            context.getPlayer().sendMessage(Text.translatable("block.endrem.custom_eye.place"), true);
             return ActionResult.PASS;
         } else if (blockstate.isOf(Blocks.END_PORTAL_FRAME)) {
             BlockState newBlockState = blockstate.with(EndPortalFrameBlock.EYE, false);
@@ -106,7 +101,7 @@ public class EREnderEye extends Item {
             world.spawnEntity(new ItemEntity(world, blockpos.getX(), blockpos.getY() + 1, blockpos.getZ(), new ItemStack(Items.ENDER_EYE)));
             return ActionResult.SUCCESS;
         } else {
-            context.getPlayer().sendMessage(new TranslatableText("block.endrem.custom_eye.frame_has_eye"), true);
+            context.getPlayer().sendMessage(Text.translatable("block.endrem.custom_eye.frame_has_eye"), true);
             return ActionResult.PASS;
         }
     }
@@ -129,7 +124,7 @@ public class EREnderEye extends Item {
             playerIn.setCurrentHand(handIn);
             if (worldIn instanceof ServerWorld) {
                 ServerWorld serverWorld = (ServerWorld)worldIn;
-                BlockPos blockpos = serverWorld.locateStructure(ConfiguredStructureFeatureTags.EYE_OF_ENDER_LOCATED, playerIn.getBlockPos(), 100, false);
+                BlockPos blockpos = serverWorld.locateStructure(StructureTags.EYE_OF_ENDER_LOCATED, playerIn.getBlockPos(), 100, false);
                 if (blockpos != null) {
                     EyeOfEnderEntity eyeOfEnderEntity = new EyeOfEnderEntity(worldIn, playerIn.getX(), playerIn.getBodyY(0.5D), playerIn.getZ());
                     eyeOfEnderEntity.setItem(itemstack);

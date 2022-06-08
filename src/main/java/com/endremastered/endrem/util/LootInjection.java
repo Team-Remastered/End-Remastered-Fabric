@@ -1,8 +1,8 @@
 package com.endremastered.endrem.util;
 
 import com.endremastered.endrem.registry.ERItems;
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.minecraft.loot.LootPool;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
@@ -34,37 +34,37 @@ public class LootInjection {
 
 
     public static void initRegister() {
-        LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, id, table, setter) -> {
+        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, table, setter) -> {
             /* Chests Loot */
             if (JUNGLE_TEMPLE_CHEST_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F)) // Same as "rolls": 1 in the loot table json
                         .conditionally(RandomChanceLootCondition.builder(0.4F))
                         .with(ItemEntry.builder(ERItems.ROGUE_EYE));
                 table.pool(poolBuilder);
             } else if (OUTPOST_CHEST_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.3F))
                         .with(ItemEntry.builder(ERItems.CORRUPTED_EYE));
                 table.pool(poolBuilder);
             }
             else if (BURIED_TREASURE_CHEST_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.3F))
                         .with(ItemEntry.builder(ERItems.BLACK_EYE));
                 table.pool(poolBuilder);
             }
             else if (MINESHAFT_CHEST_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.2F))
                         .with(ItemEntry.builder(ERItems.LOST_EYE));
                 table.pool(poolBuilder);
             }
             else if (DUNGEON_CHEST_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.05F))
                         .with(ItemEntry.builder(ERItems.LOST_EYE))
@@ -74,28 +74,28 @@ public class LootInjection {
                 table.pool(poolBuilder);
             }
             else if (DESERT_PYRAMID_CHEST_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.10F))
                         .with(ItemEntry.builder(ERItems.OLD_EYE));
                 table.pool(poolBuilder);
             }
             else if (IGLOO_CHEST_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.70F))
                         .with(ItemEntry.builder(ERItems.COLD_EYE));
                 table.pool(poolBuilder);
             }
             else if (NETHER_BRIDGE_CHEST_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.3F))
                         .with(ItemEntry.builder(ERItems.NETHER_EYE));
                 table.pool(poolBuilder);
             }
             else if (SHIPWRECK_TREASURE_CHEST_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.05F))
                         .with(ItemEntry.builder(ERItems.BLACK_EYE));
@@ -104,49 +104,49 @@ public class LootInjection {
 
             /* Entities Loot */
             else if (EVOKER_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.05F))
                         .with(ItemEntry.builder(ERItems.MAGICAL_EYE));
                 table.pool(poolBuilder);
             }
             else if (WITHER_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.9F))
                         .with(ItemEntry.builder(ERItems.WITHER_EYE));
                 table.pool(poolBuilder);
             }
             else if (ELDER_GUARDIAN_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.3F))
                         .with(ItemEntry.builder(ERItems.GUARDIAN_EYE));
                 table.pool(poolBuilder);
             }
             else if (WITCH_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.10F))
                         .with(ItemEntry.builder(ERItems.WITCH_PUPIL));
                 table.pool(poolBuilder);
             }
             else if (BASTION_TREASURE_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.5F))
                         .with(ItemEntry.builder(ERItems.CURSED_EYE));
                 table.pool(poolBuilder);
             }
             else if (WOODLAND_MANSION_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.1F))
                         .with(ItemEntry.builder(ERItems.MAGICAL_EYE));
                 table.pool(poolBuilder);
             }
             else if (SKELETON_HORSE_LOOT_TABLE_ID.equals(id)) {
-                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1.0F))
                         .conditionally(RandomChanceLootCondition.builder(0.25F))
                         .with(ItemEntry.builder(ERItems.UNDEAD_SOUL));

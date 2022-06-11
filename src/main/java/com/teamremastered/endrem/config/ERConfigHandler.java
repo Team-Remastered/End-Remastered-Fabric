@@ -1,11 +1,11 @@
-package com.endremastered.endrem.config;
+package com.teamremastered.endrem.config;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.endremastered.endrem.EndRemastered;
+import com.teamremastered.endrem.EndRemastered;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.fabricmc.loader.api.FabricLoader;

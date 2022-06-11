@@ -1,6 +1,6 @@
-package com.endremastered.endrem.mixin;
+package com.teamremastered.endrem.mixin;
 
-import com.endremastered.endrem.registry.ERItems;
+import com.teamremastered.endrem.registry.ERItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.EnchantmentScreenHandler;

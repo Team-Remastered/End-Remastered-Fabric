@@ -1,8 +1,8 @@
-package com.endremastered.endrem.registry;
+package com.teamremastered.endrem.registry;
 
-import com.endremastered.endrem.config.ERConfigHandler;
-import com.endremastered.endrem.items.ERTrades;
-import com.endremastered.endrem.util.LootInjection;
+import com.teamremastered.endrem.config.ERConfigHandler;
+import com.teamremastered.endrem.items.ERTrades;
+import com.teamremastered.endrem.util.LootInjection;
 
 public class RegisterHandler {
 

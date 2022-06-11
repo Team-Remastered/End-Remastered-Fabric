@@ -1,7 +1,7 @@
-package com.endremastered.endrem.registry;
+package com.teamremastered.endrem.registry;
 
-import com.endremastered.endrem.EndRemastered;
-import com.endremastered.endrem.items.EREnderEye;
+import com.teamremastered.endrem.EndRemastered;
+import com.teamremastered.endrem.items.EREnderEye;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.*;
 import net.minecraft.util.Rarity;

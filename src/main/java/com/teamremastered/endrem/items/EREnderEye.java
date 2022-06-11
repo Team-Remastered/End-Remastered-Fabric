@@ -1,12 +1,12 @@
-package com.endremastered.endrem.items;
+package com.teamremastered.endrem.items;
 
-import com.endremastered.endrem.EndRemastered;
-import com.endremastered.endrem.blocks.AncientPortalFrame;
-import com.endremastered.endrem.config.ERConfigHandler;
-import com.endremastered.endrem.mixin.accessor.EyeOfEnderEntityAccessorMixin;
-import com.endremastered.endrem.mixin.accessor.PlayerEntityAccessorMixin;
-import com.endremastered.endrem.blocks.ERFrameProperties;
-import com.endremastered.endrem.registry.ERBlocks;
+import com.teamremastered.endrem.EndRemastered;
+import com.teamremastered.endrem.blocks.AncientPortalFrame;
+import com.teamremastered.endrem.config.ERConfigHandler;
+import com.teamremastered.endrem.mixin.accessor.EyeOfEnderEntityAccessorMixin;
+import com.teamremastered.endrem.mixin.accessor.PlayerEntityAccessorMixin;
+import com.teamremastered.endrem.blocks.ERFrameProperties;
+import com.teamremastered.endrem.registry.ERBlocks;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;

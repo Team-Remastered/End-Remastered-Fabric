@@ -1,7 +1,7 @@
-package com.endremastered.endrem.registry;
+package com.teamremastered.endrem.registry;
 
-import com.endremastered.endrem.EndRemastered;
-import com.endremastered.endrem.blocks.AncientPortalFrame;
+import com.teamremastered.endrem.EndRemastered;
+import com.teamremastered.endrem.blocks.AncientPortalFrame;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;

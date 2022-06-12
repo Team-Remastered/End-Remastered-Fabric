@@ -1,4 +1,4 @@
-package com.endremastered.endrem.mixin.accessor;
+package com.teamremastered.endrem.mixin.accessor;
 
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;

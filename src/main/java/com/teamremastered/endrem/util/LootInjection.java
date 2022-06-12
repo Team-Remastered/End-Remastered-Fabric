@@ -1,6 +1,6 @@
-package com.endremastered.endrem.util;
+package com.teamremastered.endrem.util;
 
-import com.endremastered.endrem.registry.ERItems;
+import com.teamremastered.endrem.registry.ERItems;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.loot.condition.RandomChanceLootCondition;

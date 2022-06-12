@@ -23,7 +23,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-        "com.endremastered.endrem.EndRemastered"
+        "com.teamremastered.endrem.EndRemastered"
     ]
   },
   "mixins": [

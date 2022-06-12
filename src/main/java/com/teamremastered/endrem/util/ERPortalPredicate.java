@@ -1,8 +1,8 @@
-package com.endremastered.endrem.util;
+package com.teamremastered.endrem.util;
 
-import com.endremastered.endrem.blocks.AncientPortalFrame;
-import com.endremastered.endrem.blocks.ERFrameProperties;
-import com.endremastered.endrem.registry.ERBlocks;
+import com.teamremastered.endrem.blocks.AncientPortalFrame;
+import com.teamremastered.endrem.blocks.ERFrameProperties;
+import com.teamremastered.endrem.registry.ERBlocks;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

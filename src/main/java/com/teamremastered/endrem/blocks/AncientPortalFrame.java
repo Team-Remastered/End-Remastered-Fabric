@@ -1,6 +1,6 @@
-package com.endremastered.endrem.blocks;
+package com.teamremastered.endrem.blocks;
 
-import com.endremastered.endrem.util.ERPortalPredicate;
+import com.teamremastered.endrem.util.ERPortalPredicate;
 import net.minecraft.block.*;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.BlockPatternBuilder;

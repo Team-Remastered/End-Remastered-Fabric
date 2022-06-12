@@ -1,4 +1,4 @@
-package com.endremastered.endrem.blocks;
+package com.teamremastered.endrem.blocks;
 
 import net.minecraft.item.Item;
 import net.minecraft.util.StringIdentifiable;

@@ -1,6 +1,6 @@
-package com.endremastered.endrem.items;
+package com.teamremastered.endrem.items;
 
-import com.endremastered.endrem.registry.ERItems;
+import com.teamremastered.endrem.registry.ERItems;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;

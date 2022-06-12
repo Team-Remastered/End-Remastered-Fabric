@@ -1,8 +1,8 @@
-package com.endremastered.endrem;
+package com.teamremastered.endrem;
 
-import com.endremastered.endrem.config.ERConfigHandler;
-import com.endremastered.endrem.registry.ERItems;
-import com.endremastered.endrem.registry.RegisterHandler;
+import com.teamremastered.endrem.config.ERConfigHandler;
+import com.teamremastered.endrem.registry.ERItems;
+import com.teamremastered.endrem.registry.RegisterHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;

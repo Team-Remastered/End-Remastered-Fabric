@@ -1,6 +1,6 @@
-package com.endremastered.endrem.mixin;
+package com.teamremastered.endrem.mixin;
 
-import com.endremastered.endrem.config.ERConfigHandler;
+import com.teamremastered.endrem.config.ERConfigHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnderEyeItem;
 import net.minecraft.item.ItemStack;

@@ -41,7 +41,6 @@
   "item.endrem.cryptic_eye": "Cryptic Eye",
   "item.endrem.cryptic_eye.description": "§7§o§khttps://www.youtube.com/watch?v=dQw4w9WgXcQ",
 
-
   "item.endrem.corrupted_eye": "Corrupted Eye",
   "item.endrem.corrupted_eye.description": "§7§oThe eye of a greedy king that faded in solitude; legend says it will bring infinite fortune to its owner",
 
@@ -105,9 +104,9 @@
   "advancements.main.exotic_eye.title": "Where's Atlantis?",
   "advancements.main.exotic_eye.description": "Get Your First Exotic Eye",
 
-  "advancements.main.undead_eye.title": "The Mirror of the Soul",
+  "advancements.main.undead_eye.title": "The Mirror Of The Soul",
   "advancements.main.undead_eye.description": "Get Your First Undead Eye",
 
-  "advancements.main.cryptic_eye.title": "Patience is the road to wisdom",
+  "advancements.main.cryptic_eye.title": "Patience Is The Road To Wisdom",
   "advancements.main.cryptic_eye.description": "Get Your First Cryptic Eye"
 }

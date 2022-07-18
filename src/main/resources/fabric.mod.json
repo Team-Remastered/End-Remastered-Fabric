@@ -12,9 +12,9 @@
     "gilvoisard Artist"
   ],
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/endremastered",
-    "sources": "https://gitlab.com/endrem/fabric-endrem",
-    "issues": "https://gitlab.com/endrem/end-remastered-fabric/-/issues"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/endremastered-fabric",
+    "sources": "https://github.com/Team-Remastered/End-Remastered-Fabric",
+    "issues": "https://github.com/Team-Remastered/End-Remastered-Fabric/issues"
   },
 
   "license": "CC0-1.0",
@@ -31,7 +31,7 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.14.6",
+    "fabricloader": ">=0.14.8",
     "fabric": "*",
     "minecraft": "~1.19",
     "java": ">=17"

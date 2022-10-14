@@ -1,5 +1,6 @@
 package com.teamremastered.endrem.items;
 
+import com.teamremastered.endrem.config.ERConfigHandler;
 import com.teamremastered.endrem.registry.ERItems;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.entity.Entity;
@@ -28,12 +29,14 @@ public class ERTrades {
     }
 
     public static void registerVillagerTrades() {
-        TradeOfferHelper.registerVillagerOffers(VillagerProfession.CLERIC, 5, factories -> {
-            factories.add(new EREyeTrade());
-        });
+        if (ERConfigHandler.IS_EVIL_EYE_OBTAINABLE) {
+            TradeOfferHelper.registerVillagerOffers(VillagerProfession.CLERIC, 5, factories -> {
+                factories.add(new EREyeTrade());
+            });
 
-        TradeOfferHelper.registerWanderingTraderOffers(0,factories -> {
-            factories.add(new EREyeTrade());
-        });
+            TradeOfferHelper.registerWanderingTraderOffers(0, factories -> {
+                factories.add(new EREyeTrade());
+            });
+        }
     }
 }

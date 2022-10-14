@@ -18,6 +18,9 @@ public class ERConfigHandler {
 
     public static boolean ENABLE_EYE_OF_ENDER = false;
     public static int EYE_BREAK_PROBABILITY = 10;
+    public static boolean IS_CRYPTIC_EYE_OBTAINABLE = true;
+    public static boolean IS_EVIL_EYE_OBTAINABLE = true;
+
 
     public static String ROGUE_EYE_LOOT_TABLE_ID = "minecraft:chests/jungle_temple";
     public static float ROGUE_EYE_WEIGHT = 0.40F;
@@ -60,6 +63,9 @@ public class ERConfigHandler {
 
                 ENABLE_EYE_OF_ENDER = data.common.ENABLE_EYE_OF_ENDER;
                 EYE_BREAK_PROBABILITY = data.common.EYE_BREAK_PROBABILITY;
+                IS_CRYPTIC_EYE_OBTAINABLE = data.common.IS_CRYPTIC_EYE_OBTAINABLE;
+                IS_EVIL_EYE_OBTAINABLE = data.common.IS_EVIL_EYE_OBTAINABLE;
+
                 ROGUE_EYE_LOOT_TABLE_ID = data.common.ROGUE_EYE_LOOT_TABLE_ID;
                 ROGUE_EYE_WEIGHT = data.common.ROGUE_EYE_WEIGHT;
                 CORRUPTED_EYE_LOOT_TABLE_ID = data.common.CORRUPTED_EYE_LOOT_TABLE_ID;
@@ -102,6 +108,9 @@ public class ERConfigHandler {
             Data data = new Data(new Data.Common(
                     ENABLE_EYE_OF_ENDER,
                     EYE_BREAK_PROBABILITY,
+                    IS_CRYPTIC_EYE_OBTAINABLE,
+                    IS_EVIL_EYE_OBTAINABLE,
+
                     ROGUE_EYE_LOOT_TABLE_ID,
                     ROGUE_EYE_WEIGHT,
                     CORRUPTED_EYE_LOOT_TABLE_ID,
@@ -160,6 +169,11 @@ public class ERConfigHandler {
             private final String eyeBreakProbabilityComment = "Percentage chance of eyes breaking when thrown";
             private final int EYE_BREAK_PROBABILITY;
 
+            private final String crypticAndEvilEyeComment = "Decides if the cryptic eye and the evil eye is obtainable in game";
+            private final boolean IS_CRYPTIC_EYE_OBTAINABLE;
+            private final boolean IS_EVIL_EYE_OBTAINABLE;
+
+            private final String lootTablesIdComment = "this below is what you want to modify if you wanna change the loot tables of the eyes and their chance to appear.";
             private final String ROGUE_EYE_LOOT_TABLE_ID;
             private final float ROGUE_EYE_WEIGHT;
             private final String CORRUPTED_EYE_LOOT_TABLE_ID;
@@ -193,6 +207,9 @@ public class ERConfigHandler {
             private Common() {
                  ENABLE_EYE_OF_ENDER = false;
                  EYE_BREAK_PROBABILITY = 10;
+                 IS_CRYPTIC_EYE_OBTAINABLE = true;
+                 IS_EVIL_EYE_OBTAINABLE = true;
+
                  ROGUE_EYE_LOOT_TABLE_ID = "minecraft:chests/jungle_temple";
                  ROGUE_EYE_WEIGHT = 0.40F;
                  CORRUPTED_EYE_LOOT_TABLE_ID = "minecraft:chests/pillager_outpost";
@@ -227,6 +244,9 @@ public class ERConfigHandler {
             private Common(
                                    boolean ENABLE_EYE_OF_ENDER,
                                    int EYE_BREAK_PROBABILITY,
+                                   boolean IS_CRYPTIC_EYE_OBTAINABLE,
+                                   boolean IS_EVIL_EYE_OBTAINABLE,
+
                                    String ROGUE_EYE_LOOT_TABLE_ID,
                                    float ROGUE_EYE_WEIGHT,
                                    String CORRUPTED_EYE_LOOT_TABLE_ID,
@@ -258,6 +278,9 @@ public class ERConfigHandler {
             {
                 this.ENABLE_EYE_OF_ENDER = ENABLE_EYE_OF_ENDER;
                 this.EYE_BREAK_PROBABILITY = EYE_BREAK_PROBABILITY;
+                this.IS_CRYPTIC_EYE_OBTAINABLE = IS_CRYPTIC_EYE_OBTAINABLE;
+                this.IS_EVIL_EYE_OBTAINABLE = IS_EVIL_EYE_OBTAINABLE;
+
                 this.ROGUE_EYE_LOOT_TABLE_ID = ROGUE_EYE_LOOT_TABLE_ID;
                 this.ROGUE_EYE_WEIGHT = ROGUE_EYE_WEIGHT;
                 this.CORRUPTED_EYE_LOOT_TABLE_ID = CORRUPTED_EYE_LOOT_TABLE_ID;

@@ -22,7 +22,7 @@ public class ERTrades {
         public TradeOffer create(@NotNull Entity entity, Random random){
             int priceEmeralds = random.nextInt(maxPrice - minPrice) + minPrice;
             if (!entity.world.isClient) {
-                return new TradeOffer(new ItemStack(Items.EMERALD, priceEmeralds), new ItemStack(Items.COMPASS), new ItemStack(ERItems.EVIL_EYE), priceEmeralds, 12, 10, 0.2F);
+                return new TradeOffer(new ItemStack(Items.EMERALD, priceEmeralds), new ItemStack(Items.RABBIT_FOOT), new ItemStack(ERItems.EVIL_EYE), priceEmeralds, 12, 10, 0.2F);
             }
             return null;
         }

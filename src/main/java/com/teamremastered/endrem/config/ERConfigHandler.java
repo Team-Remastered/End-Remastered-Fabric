@@ -20,6 +20,7 @@ public class ERConfigHandler {
     public static int EYE_BREAK_PROBABILITY = 10;
     public static boolean IS_CRYPTIC_EYE_OBTAINABLE = true;
     public static boolean IS_EVIL_EYE_OBTAINABLE = true;
+    public static boolean CAN_REMOVE_EYE = false;
 
 
     public static String ROGUE_EYE_LOOT_TABLE_ID = "minecraft:chests/jungle_temple";
@@ -65,6 +66,7 @@ public class ERConfigHandler {
                 EYE_BREAK_PROBABILITY = data.common.EYE_BREAK_PROBABILITY;
                 IS_CRYPTIC_EYE_OBTAINABLE = data.common.IS_CRYPTIC_EYE_OBTAINABLE;
                 IS_EVIL_EYE_OBTAINABLE = data.common.IS_EVIL_EYE_OBTAINABLE;
+                CAN_REMOVE_EYE = data.common.CAN_REMOVE_EYE;
 
                 ROGUE_EYE_LOOT_TABLE_ID = data.common.ROGUE_EYE_LOOT_TABLE_ID;
                 ROGUE_EYE_WEIGHT = data.common.ROGUE_EYE_WEIGHT;
@@ -110,6 +112,7 @@ public class ERConfigHandler {
                     EYE_BREAK_PROBABILITY,
                     IS_CRYPTIC_EYE_OBTAINABLE,
                     IS_EVIL_EYE_OBTAINABLE,
+                    CAN_REMOVE_EYE,
 
                     ROGUE_EYE_LOOT_TABLE_ID,
                     ROGUE_EYE_WEIGHT,
@@ -173,6 +176,9 @@ public class ERConfigHandler {
             private final boolean IS_CRYPTIC_EYE_OBTAINABLE;
             private final boolean IS_EVIL_EYE_OBTAINABLE;
 
+            private final String removeVanillaEyeComment = "Decides whether or not you can remove an ender eye from a frame";
+            private final boolean CAN_REMOVE_EYE;
+
             private final String lootTablesIdComment = "this below is what you want to modify if you wanna change the loot tables of the eyes and their chance to appear.";
             private final String ROGUE_EYE_LOOT_TABLE_ID;
             private final float ROGUE_EYE_WEIGHT;
@@ -209,6 +215,7 @@ public class ERConfigHandler {
                  EYE_BREAK_PROBABILITY = 10;
                  IS_CRYPTIC_EYE_OBTAINABLE = true;
                  IS_EVIL_EYE_OBTAINABLE = true;
+                CAN_REMOVE_EYE = false;
 
                  ROGUE_EYE_LOOT_TABLE_ID = "minecraft:chests/jungle_temple";
                  ROGUE_EYE_WEIGHT = 0.40F;
@@ -246,6 +253,7 @@ public class ERConfigHandler {
                                    int EYE_BREAK_PROBABILITY,
                                    boolean IS_CRYPTIC_EYE_OBTAINABLE,
                                    boolean IS_EVIL_EYE_OBTAINABLE,
+                                   boolean CAN_REMOVE_EYE,
 
                                    String ROGUE_EYE_LOOT_TABLE_ID,
                                    float ROGUE_EYE_WEIGHT,
@@ -280,6 +288,7 @@ public class ERConfigHandler {
                 this.EYE_BREAK_PROBABILITY = EYE_BREAK_PROBABILITY;
                 this.IS_CRYPTIC_EYE_OBTAINABLE = IS_CRYPTIC_EYE_OBTAINABLE;
                 this.IS_EVIL_EYE_OBTAINABLE = IS_EVIL_EYE_OBTAINABLE;
+                this.CAN_REMOVE_EYE = CAN_REMOVE_EYE;
 
                 this.ROGUE_EYE_LOOT_TABLE_ID = ROGUE_EYE_LOOT_TABLE_ID;
                 this.ROGUE_EYE_WEIGHT = ROGUE_EYE_WEIGHT;

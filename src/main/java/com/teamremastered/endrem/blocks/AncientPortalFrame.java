@@ -1,5 +1,6 @@
 package com.teamremastered.endrem.blocks;
 
+import com.google.common.base.Predicates;
 import com.teamremastered.endrem.util.ERPortalPredicate;
 import net.minecraft.block.*;
 import net.minecraft.block.pattern.BlockPattern;
@@ -8,8 +9,10 @@ import net.minecraft.block.pattern.CachedBlockPosition;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.predicate.block.BlockStatePredicate;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
@@ -23,6 +26,8 @@ import org.jetbrains.annotations.Nullable;
 public class AncientPortalFrame extends Block {
 
     public static final EnumProperty<ERFrameProperties> EYE = EnumProperty.of("eye", ERFrameProperties.class);
+    public static final BooleanProperty HAS_EYE = Properties.EYE;;
+
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
 
     // Declare Voxel Shapes (BASE = no eye, EYE = only eye, FULL = both)
@@ -41,10 +46,10 @@ public class AncientPortalFrame extends Block {
         return BlockPatternBuilder.start()
        .aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?")
        .where('?', CachedBlockPosition.matchesBlockState(BlockStatePredicate.ANY))
-       .where('^', CachedBlockPosition.matchesBlockState(ERPortalPredicate.facing(Direction.SOUTH).withoutEye(excludedEyeState).requireAncientFrame(filled)))
-       .where('>', CachedBlockPosition.matchesBlockState(ERPortalPredicate.facing(Direction.WEST).withoutEye(excludedEyeState).requireAncientFrame(filled)))
-       .where('v', CachedBlockPosition.matchesBlockState(ERPortalPredicate.facing(Direction.NORTH).withoutEye(excludedEyeState).requireAncientFrame(filled)))
-       .where('<', CachedBlockPosition.matchesBlockState(ERPortalPredicate.facing(Direction.EAST).withoutEye(excludedEyeState).requireAncientFrame(filled)))
+       .where('^', CachedBlockPosition.matchesBlockState(ERPortalPredicate.facing(Direction.SOUTH).withoutEye(excludedEyeState).requireAncientFrame(filled).or((BlockStatePredicate.forBlock(Blocks.END_PORTAL_FRAME).with(HAS_EYE, Predicates.equalTo(true))))))
+       .where('>', CachedBlockPosition.matchesBlockState(ERPortalPredicate.facing(Direction.WEST).withoutEye(excludedEyeState).requireAncientFrame(filled).or((BlockStatePredicate.forBlock(Blocks.END_PORTAL_FRAME).with(HAS_EYE, Predicates.equalTo(true))))))
+       .where('v', CachedBlockPosition.matchesBlockState(ERPortalPredicate.facing(Direction.NORTH).withoutEye(excludedEyeState).requireAncientFrame(filled).or((BlockStatePredicate.forBlock(Blocks.END_PORTAL_FRAME).with(HAS_EYE, Predicates.equalTo(true))))))
+       .where('<', CachedBlockPosition.matchesBlockState(ERPortalPredicate.facing(Direction.EAST).withoutEye(excludedEyeState).requireAncientFrame(filled).or((BlockStatePredicate.forBlock(Blocks.END_PORTAL_FRAME).with(HAS_EYE, Predicates.equalTo(true))))))
        .build();
     }
 

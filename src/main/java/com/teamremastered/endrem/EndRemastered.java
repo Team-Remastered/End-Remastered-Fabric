@@ -20,7 +20,7 @@ public class EndRemastered implements ModInitializer {
     public static final ItemGroup ENDREM_TAB = FabricItemGroup.builder(createIdentifier("endrem_tab"))
             .displayName(Text.translatable("itemGroup.endrem.endrem_tab"))
             .icon(() -> new ItemStack(ERItems.WITCH_EYE))
-            .entries((enabledFeatures, entries, operatorEnabled) -> {
+            .entries((properties, entries) -> {
                 entries.add(ERItems.BLACK_EYE);
                 entries.add(ERItems.COLD_EYE);
                 entries.add(ERItems.CORRUPTED_EYE);

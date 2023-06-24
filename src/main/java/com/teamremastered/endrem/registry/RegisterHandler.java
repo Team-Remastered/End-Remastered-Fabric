@@ -10,6 +10,7 @@ public class RegisterHandler {
         /* Miscellaneous */
         ERConfigHandler.load();
         ERTrades.registerVillagerTrades();
+        ERTabs.initRegister();
         LootInjection.initRegister();
 
         /* Blocks & Items */

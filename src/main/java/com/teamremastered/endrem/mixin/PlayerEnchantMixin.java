@@ -20,7 +20,7 @@ public class PlayerEnchantMixin {
         Random random = new Random();
         int maxValue = 120;
         int randomNumber = random.nextInt(maxValue);
-        if (!player.world.isClient && player != null) {
+        if (!player.getWorld().isClient && player != null) {
             if (ERConfigHandler.IS_CRYPTIC_EYE_OBTAINABLE && randomNumber == maxValue - 1) {
         player.getInventory().insertStack(new ItemStack(ERItems.CRYPTIC_EYE));
             }

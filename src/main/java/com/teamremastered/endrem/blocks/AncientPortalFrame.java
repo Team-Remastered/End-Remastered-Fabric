@@ -71,7 +71,7 @@ public class AncientPortalFrame extends Block {
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return (BlockState)((BlockState)this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite())).with(HAS_EYE, false);
+        return (BlockState)((BlockState)this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()));
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {

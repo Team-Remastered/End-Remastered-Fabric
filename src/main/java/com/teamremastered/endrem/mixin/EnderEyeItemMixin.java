@@ -32,7 +32,7 @@ public class EnderEyeItemMixin {
             BlockPos blockPos = context.getBlockPos();
             BlockState blockState = world.getBlockState(blockPos);
             if (blockState.isOf(Blocks.END_PORTAL_FRAME)) {
-                cir.setReturnValue(ActionResult.PASS);
+                cir.setReturnValue(ActionResult.SUCCESS);
                 context.getPlayer().sendMessage(Text.translatable("block.endrem.ender_eye.warning"), true);
             }
         }
@@ -44,7 +44,7 @@ public class EnderEyeItemMixin {
     private void DisableThrowingEnderEyes(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
         if (!ERConfigHandler.USE_EYE_OF_ENDER) {
             ItemStack itemStack = user.getStackInHand(hand);
-            cir.setReturnValue(TypedActionResult.pass(itemStack));
+            cir.setReturnValue(TypedActionResult.success(itemStack));
             user.sendMessage(Text.translatable("block.endrem.ender_eye.warning"), true);
         }
     }

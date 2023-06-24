@@ -6,6 +6,7 @@
   "mixins": [
     "EnderEyeItemMixin",
     "PlayerEnchantMixin",
+    "StrongholdGeneratorMixin",
     "accessor.EyeOfEnderEntityAccessorMixin",
     "accessor.PlayerEntityAccessorMixin"
   ],

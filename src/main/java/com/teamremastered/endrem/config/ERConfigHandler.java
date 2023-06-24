@@ -17,8 +17,8 @@ public class ERConfigHandler {
     private static Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
     public static boolean USE_EYE_OF_ENDER = false;
-
     public static boolean THROW_EYE_OF_ENDER = false;
+    public static boolean FRAME_HAS_RANDOM_EYE = false;
     public static int EYE_BREAK_PROBABILITY = 10;
     public static boolean IS_CRYPTIC_EYE_OBTAINABLE = true;
     public static boolean IS_EVIL_EYE_OBTAINABLE = true;
@@ -66,6 +66,7 @@ public class ERConfigHandler {
 
                 USE_EYE_OF_ENDER = data.common.ENABLE_EYE_OF_ENDER;
                 THROW_EYE_OF_ENDER = data.common.THROW_EYE_OF_ENDER;
+                FRAME_HAS_RANDOM_EYE = data.common.FRAME_HAS_RANDOM_EYE;
                 EYE_BREAK_PROBABILITY = data.common.EYE_BREAK_PROBABILITY;
                 IS_CRYPTIC_EYE_OBTAINABLE = data.common.IS_CRYPTIC_EYE_OBTAINABLE;
                 IS_EVIL_EYE_OBTAINABLE = data.common.IS_EVIL_EYE_OBTAINABLE;
@@ -113,6 +114,7 @@ public class ERConfigHandler {
             Data data = new Data(new Data.Common(
                     USE_EYE_OF_ENDER,
                     THROW_EYE_OF_ENDER,
+                    FRAME_HAS_RANDOM_EYE,
                     EYE_BREAK_PROBABILITY,
                     IS_CRYPTIC_EYE_OBTAINABLE,
                     IS_EVIL_EYE_OBTAINABLE,
@@ -176,6 +178,9 @@ public class ERConfigHandler {
             private final String throwEyeOfEnderComment = "Enable/Disable throwing of Ender Eyes";
             private final boolean THROW_EYE_OF_ENDER;
 
+            private final String frameHasRandomEyeComment = "Enable/Disable whether or not ender eyes can naturally generate within the frames of the portal";
+            private final boolean FRAME_HAS_RANDOM_EYE;
+
             private final String eyeBreakProbabilityComment = "Percentage chance of eyes breaking when thrown";
             private final int EYE_BREAK_PROBABILITY;
 
@@ -219,11 +224,12 @@ public class ERConfigHandler {
 
             private Common() {
                  ENABLE_EYE_OF_ENDER = false;
-                 THROW_EYE_OF_ENDER = true;
+                 THROW_EYE_OF_ENDER = false;
+                 FRAME_HAS_RANDOM_EYE = false;
                  EYE_BREAK_PROBABILITY = 10;
                  IS_CRYPTIC_EYE_OBTAINABLE = true;
                  IS_EVIL_EYE_OBTAINABLE = true;
-                CAN_REMOVE_EYE = false;
+                 CAN_REMOVE_EYE = false;
 
                  ROGUE_EYE_LOOT_TABLE_ID = "minecraft:chests/jungle_temple";
                  ROGUE_EYE_WEIGHT = 0.40F;
@@ -259,6 +265,7 @@ public class ERConfigHandler {
             private Common(
                                    boolean ENABLE_EYE_OF_ENDER,
                                    boolean THROW_EYE_OF_ENDER,
+                                   boolean FRAME_HAS_RANDOM_EYE,
                                    int EYE_BREAK_PROBABILITY,
                                    boolean IS_CRYPTIC_EYE_OBTAINABLE,
                                    boolean IS_EVIL_EYE_OBTAINABLE,
@@ -295,6 +302,7 @@ public class ERConfigHandler {
             {
                 this.ENABLE_EYE_OF_ENDER = ENABLE_EYE_OF_ENDER;
                 this.THROW_EYE_OF_ENDER = THROW_EYE_OF_ENDER;
+                this.FRAME_HAS_RANDOM_EYE = FRAME_HAS_RANDOM_EYE;
                 this.EYE_BREAK_PROBABILITY = EYE_BREAK_PROBABILITY;
                 this.IS_CRYPTIC_EYE_OBTAINABLE = IS_CRYPTIC_EYE_OBTAINABLE;
                 this.IS_EVIL_EYE_OBTAINABLE = IS_EVIL_EYE_OBTAINABLE;

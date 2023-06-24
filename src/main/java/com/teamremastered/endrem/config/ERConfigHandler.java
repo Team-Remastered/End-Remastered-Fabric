@@ -16,7 +16,9 @@ public class ERConfigHandler {
     private static Path configFilePath;
     private static Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
-    public static boolean ENABLE_EYE_OF_ENDER = false;
+    public static boolean USE_EYE_OF_ENDER = false;
+
+    public static boolean THROW_EYE_OF_ENDER = false;
     public static int EYE_BREAK_PROBABILITY = 10;
     public static boolean IS_CRYPTIC_EYE_OBTAINABLE = true;
     public static boolean IS_EVIL_EYE_OBTAINABLE = true;
@@ -62,7 +64,8 @@ public class ERConfigHandler {
 
                 Data data = gson.fromJson(reader, Data.class);
 
-                ENABLE_EYE_OF_ENDER = data.common.ENABLE_EYE_OF_ENDER;
+                USE_EYE_OF_ENDER = data.common.ENABLE_EYE_OF_ENDER;
+                THROW_EYE_OF_ENDER = data.common.THROW_EYE_OF_ENDER;
                 EYE_BREAK_PROBABILITY = data.common.EYE_BREAK_PROBABILITY;
                 IS_CRYPTIC_EYE_OBTAINABLE = data.common.IS_CRYPTIC_EYE_OBTAINABLE;
                 IS_EVIL_EYE_OBTAINABLE = data.common.IS_EVIL_EYE_OBTAINABLE;
@@ -108,7 +111,8 @@ public class ERConfigHandler {
         try {
             Writer writer = Files.newBufferedWriter(getFilePath());
             Data data = new Data(new Data.Common(
-                    ENABLE_EYE_OF_ENDER,
+                    USE_EYE_OF_ENDER,
+                    THROW_EYE_OF_ENDER,
                     EYE_BREAK_PROBABILITY,
                     IS_CRYPTIC_EYE_OBTAINABLE,
                     IS_EVIL_EYE_OBTAINABLE,
@@ -169,6 +173,9 @@ public class ERConfigHandler {
             private final String enableEyeOfEnderComment = "Enable/Disable usage of Ender Eyes";
             private final boolean ENABLE_EYE_OF_ENDER;
 
+            private final String throwEyeOfEnderComment = "Enable/Disable throwing of Ender Eyes";
+            private final boolean THROW_EYE_OF_ENDER;
+
             private final String eyeBreakProbabilityComment = "Percentage chance of eyes breaking when thrown";
             private final int EYE_BREAK_PROBABILITY;
 
@@ -212,6 +219,7 @@ public class ERConfigHandler {
 
             private Common() {
                  ENABLE_EYE_OF_ENDER = false;
+                 THROW_EYE_OF_ENDER = true;
                  EYE_BREAK_PROBABILITY = 10;
                  IS_CRYPTIC_EYE_OBTAINABLE = true;
                  IS_EVIL_EYE_OBTAINABLE = true;
@@ -250,6 +258,7 @@ public class ERConfigHandler {
 
             private Common(
                                    boolean ENABLE_EYE_OF_ENDER,
+                                   boolean THROW_EYE_OF_ENDER,
                                    int EYE_BREAK_PROBABILITY,
                                    boolean IS_CRYPTIC_EYE_OBTAINABLE,
                                    boolean IS_EVIL_EYE_OBTAINABLE,
@@ -285,6 +294,7 @@ public class ERConfigHandler {
                                    float UNDEAD_SOUL_WEIGHT)
             {
                 this.ENABLE_EYE_OF_ENDER = ENABLE_EYE_OF_ENDER;
+                this.THROW_EYE_OF_ENDER = THROW_EYE_OF_ENDER;
                 this.EYE_BREAK_PROBABILITY = EYE_BREAK_PROBABILITY;
                 this.IS_CRYPTIC_EYE_OBTAINABLE = IS_CRYPTIC_EYE_OBTAINABLE;
                 this.IS_EVIL_EYE_OBTAINABLE = IS_EVIL_EYE_OBTAINABLE;

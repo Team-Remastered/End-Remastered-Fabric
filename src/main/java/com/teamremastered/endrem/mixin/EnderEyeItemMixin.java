@@ -42,7 +42,7 @@ public class EnderEyeItemMixin {
         at = @At(value = "HEAD"),
         cancellable = true)
     private void DisableThrowingEnderEyes(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
-        if (!ERConfigHandler.USE_EYE_OF_ENDER) {
+        if (!ERConfigHandler.THROW_EYE_OF_ENDER) {
             ItemStack itemStack = user.getStackInHand(hand);
             cir.setReturnValue(TypedActionResult.success(itemStack));
             user.sendMessage(Text.translatable("block.endrem.ender_eye.warning"), true);

@@ -1,12 +1,9 @@
 package com.teamremastered.endrem.util;
 
 import com.teamremastered.endrem.config.ERConfigHandler;
-import com.teamremastered.endrem.registry.ERItems;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.loot.LootPool;
-import net.minecraft.loot.condition.RandomChanceLootCondition;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
+import net.minecraft.loot.entry.LootTableEntry;
 import net.minecraft.util.Identifier;
 
 
@@ -62,102 +59,74 @@ public class LootInjection {
             /* Chests Loot */
             if (JUNGLE_TEMPLE_CHEST_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0F)) // Same as "rolls": 1 in the loot table json
-                        .conditionally(RandomChanceLootCondition.builder(ERConfigHandler.ROGUE_EYE_WEIGHT))
-                        .with(ItemEntry.builder(ERItems.ROGUE_EYE));
+                        .with(LootTableEntry.builder(new Identifier("endrem", "minecraft/chests/jungle_temple")));
                 table.pool(poolBuilder);
             } else if (OUTPOST_CHEST_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .conditionally(RandomChanceLootCondition.builder(ERConfigHandler.CORRUPTED_EYE_WEIGHT))
-                        .with(ItemEntry.builder(ERItems.CORRUPTED_EYE));
+                        .with(LootTableEntry.builder(new Identifier("endrem", "minecraft/chests/pillager_outpost")));
                 table.pool(poolBuilder);
             }
             else if (BURIED_TREASURE_CHEST_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .conditionally(RandomChanceLootCondition.builder(ERConfigHandler.BLACK_EYE_WEIGHT))
-                        .with(ItemEntry.builder(ERItems.BLACK_EYE));
+                        .with(LootTableEntry.builder(new Identifier("endrem", "minecraft/chests/buried_treasure")));
                 table.pool(poolBuilder);
             }
             else if (MINESHAFT_CHEST_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .conditionally(RandomChanceLootCondition.builder(ERConfigHandler.LOST_EYE_WEIGHT))
-                        .with(ItemEntry.builder(ERItems.LOST_EYE));
+                        .with(LootTableEntry.builder(new Identifier("endrem", "minecraft/chests/abandoned_mineshaft")));
                 table.pool(poolBuilder);
             }
             else if (DESERT_PYRAMID_CHEST_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .conditionally(RandomChanceLootCondition.builder(ERConfigHandler.OLD_EYE_WEIGHT))
-                        .with(ItemEntry.builder(ERItems.OLD_EYE));
+                        .with(LootTableEntry.builder(new Identifier("endrem", "minecraft/chests/desert_pyramid")));
                 table.pool(poolBuilder);
             }
             else if (IGLOO_CHEST_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .conditionally(RandomChanceLootCondition.builder(ERConfigHandler.COLD_EYE_WEIGHT))
-                        .with(ItemEntry.builder(ERItems.COLD_EYE));
+                        .with(LootTableEntry.builder(new Identifier("endrem", "minecraft/chests/igloo_chest")));
                 table.pool(poolBuilder);
             }
             else if (NETHER_BRIDGE_CHEST_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .conditionally(RandomChanceLootCondition.builder(ERConfigHandler.NETHER_EYE_WEIGHT))
-                        .with(ItemEntry.builder(ERItems.NETHER_EYE));
+                        .with(LootTableEntry.builder(new Identifier("endrem", "minecraft/chests/nether_bridge")));
                 table.pool(poolBuilder);
             }
 
             else if (BASTION_TREASURE_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .conditionally(RandomChanceLootCondition.builder(ERConfigHandler.CURSED_EYE_WEIGHT))
-                        .with(ItemEntry.builder(ERItems.CURSED_EYE));
+                        .with(LootTableEntry.builder(new Identifier("endrem", "minecraft/chests/bastion_treasure")));
                 table.pool(poolBuilder);
             }
             else if (WOODLAND_MANSION_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .conditionally(RandomChanceLootCondition.builder(ERConfigHandler.MAGICAL_EYE_MANSION_WEIGHT))
-                        .with(ItemEntry.builder(ERItems.MAGICAL_EYE));
+                        .with(LootTableEntry.builder(new Identifier("endrem", "minecraft/chests/woodland_mansion")));
                 table.pool(poolBuilder);
             }
 
             /* Entities Loot */
             else if (EVOKER_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .conditionally(RandomChanceLootCondition.builder(ERConfigHandler.MAGICAL_EYE_EVOKER_WEIGHT))
-                        .with(ItemEntry.builder(ERItems.MAGICAL_EYE));
+                        .with(LootTableEntry.builder(new Identifier("endrem", "minecraft/entities/evoker")));
                 table.pool(poolBuilder);
             }
             else if (WITHER_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(2.0F))
-                        .conditionally(RandomChanceLootCondition.builder(ERConfigHandler.WITHER_EYE_WEIGHT))
-                        .with(ItemEntry.builder(ERItems.WITHER_EYE));
+                        .with(LootTableEntry.builder(new Identifier("endrem", "minecraft/entities/wither")));
                 table.pool(poolBuilder);
             }
             else if (ELDER_GUARDIAN_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .conditionally(RandomChanceLootCondition.builder(ERConfigHandler.GUARDIAN_EYE_WEIGHT))
-                        .with(ItemEntry.builder(ERItems.GUARDIAN_EYE));
+                        .with(LootTableEntry.builder(new Identifier("endrem", "minecraft/entities/elder_guardian")));
                 table.pool(poolBuilder);
             }
             else if (WITCH_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .conditionally(RandomChanceLootCondition.builder(ERConfigHandler.WITCH_PUPIL_WEIGHT))
-                        .with(ItemEntry.builder(ERItems.WITCH_PUPIL));
+                        .with(LootTableEntry.builder(new Identifier("endrem", "minecraft/entities/witch")));
                 table.pool(poolBuilder);
             }
             else if (SKELETON_HORSE_LOOT_TABLE_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1.0F))
-                        .conditionally(RandomChanceLootCondition.builder(ERConfigHandler.UNDEAD_SOUL_WEIGHT))
-                        .with(ItemEntry.builder(ERItems.UNDEAD_SOUL));
+                        .with(LootTableEntry.builder(new Identifier("endrem", "minecraft/entities/skeleton_horse")));
                 table.pool(poolBuilder);
             }
         });

@@ -11,11 +11,20 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
+	mavenCentral()
+	mavenLocal()
+	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
+	}
+
+	maven {
+		url = 'https://jitpack.io'
+	}
+
+	maven {
+		url = 'https://maven.shedaniel.me'
+	}
 }
 
 dependencies {
@@ -26,6 +35,14 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	modCompileOnly ("maven.modrinth:immersiveportals:v3.3.7-mc1.20.1")
+	modLocalRuntime ("maven.modrinth:immersiveportals:v3.3.7-mc1.20.1")
+//	modCompileOnly ("com.github.iPortalTeam.ImmersivePortalsMod:imm_ptl_core:v3.2.7-mc1.20.1")
+	modLocalRuntime ("com.github.iPortalTeam.ImmersivePortalsMod:imm_ptl_core:v3.3.7-mc1.20.1")
+//	modCompileOnly ("com.github.iPortalTeam.ImmersivePortalsMod:q_misc_util:v3.2.7-mc1.20.1")
+	modLocalRuntime ("com.github.iPortalTeam.ImmersivePortalsMod:q_misc_util:v3.3.7-mc1.20.1")
+
 }
 
 processResources {

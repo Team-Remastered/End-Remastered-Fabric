@@ -8,6 +8,7 @@ import com.teamremastered.endrem.mixin.accessor.PlayerEntityAccessorMixin;
 import com.teamremastered.endrem.blocks.ERFrameProperties;
 import com.teamremastered.endrem.registry.ERBlocks;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.block.pattern.BlockPattern;
@@ -28,10 +29,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class EREnderEye extends Item {
@@ -80,7 +83,7 @@ public class EREnderEye extends Item {
                 world.syncWorldEvent(1503, blockpos, 0);
                 BlockPattern.Result blockpattern$patternhelper = AncientPortalFrame.getPortalShape(ERFrameProperties.EMPTY, true).searchAround(world, blockpos);
 
-                if (blockpattern$patternhelper != null) {
+                if (blockpattern$patternhelper != null && !FabricLoader.getInstance().getModContainer("immersive_portals").isPresent()) {
                     BlockPos blockpos1 = blockpattern$patternhelper.getFrontTopLeft().add(-3, 0, -3);
 
                     for (int i = 0; i < 3; ++i) {
@@ -91,6 +94,32 @@ public class EREnderEye extends Item {
 
                     world.syncGlobalEvent(1038, blockpos1.add(1, 0, 1), 0);
                 }
+
+                else if(blockpattern$patternhelper != null){
+
+                    BlockPos blockpos1 = blockpattern$patternhelper.getFrontTopLeft().add(-3, 0, -3);
+
+                    for (int i = 0; i < 3; ++i) {
+                        for (int j = 0; j < 3; ++j) {
+                            world.setBlockState(blockpos1.add(i, 0, j), Blocks.AIR.getDefaultState(), 2);
+                        }
+                    }
+
+                    world.syncGlobalEvent(1038, blockpos1.add(1, 0, 1), 0);
+
+                    try {
+                        Class immersive_portal = Class.forName("qouteall.imm_ptl.core.portal.EndPortalEntity");
+
+                        Method onEndPortalComplete = immersive_portal.getDeclaredMethod("onEndPortalComplete", ServerWorld.class, Vec3d.class);
+
+                        onEndPortalComplete.invoke(null, world, Vec3d.of(blockpattern$patternhelper.getFrontTopLeft()).add(-1.5, 0.5, -1.5));
+
+                    } catch (Exception e) {
+                        EndRemastered.LOGGER.error(e);
+                        throw new RuntimeException(e);
+                    }
+                }
+
                 return ActionResult.CONSUME;
             }
             context.getPlayer().sendMessage(Text.translatable("block.endrem.custom_eye.place"), true);

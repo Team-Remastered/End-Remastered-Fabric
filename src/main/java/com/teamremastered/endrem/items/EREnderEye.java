@@ -29,9 +29,13 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import org.joml.Vector3d;
+import qouteall.imm_ptl.core.portal.EndPortalEntity;
+import qouteall.imm_ptl.core.portal.PortalPlaceholderBlock;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.lang.reflect.Method;
@@ -94,34 +98,26 @@ public class EREnderEye extends Item {
 
                     world.syncGlobalEvent(1038, blockpos1.add(1, 0, 1), 0);
                 }
-
+                //Immersive Portals Compat
                 else if(blockpattern$patternhelper != null){
-
                     BlockPos blockpos1 = blockpattern$patternhelper.getFrontTopLeft().add(-3, 0, -3);
 
-                    for (int i = 0; i < 3; ++i) {
-                        for (int j = 0; j < 3; ++j) {
-                            world.setBlockState(blockpos1.add(i, 0, j), Blocks.AIR.getDefaultState(), 2);
+                    for (int x = 0; x < 3; ++x) {
+                        for (int z = 0; z < 3; ++z) {
+                            world.setBlockState(
+                                    blockpos1.add(x, 0, z),
+                                    PortalPlaceholderBlock.instance.getDefaultState().with(PortalPlaceholderBlock.AXIS, Direction.Axis.Y), 2);
                         }
                     }
 
                     world.syncGlobalEvent(1038, blockpos1.add(1, 0, 1), 0);
 
-                    try {
-                        Class immersive_portal = Class.forName("qouteall.imm_ptl.core.portal.EndPortalEntity");
-
-                        Method onEndPortalComplete = immersive_portal.getDeclaredMethod("onEndPortalComplete", ServerWorld.class, Vec3d.class);
-
-                        onEndPortalComplete.invoke(null, world, Vec3d.of(blockpattern$patternhelper.getFrontTopLeft()).add(-1.5, 0.5, -1.5));
-
-                    } catch (Exception e) {
-                        EndRemastered.LOGGER.error(e);
-                        throw new RuntimeException(e);
-                    }
+                    EndPortalEntity.onEndPortalComplete((ServerWorld) world, Vec3d.of(blockpattern$patternhelper.getFrontTopLeft()).add(-1.5, 0.5, -1.5));
                 }
 
                 return ActionResult.CONSUME;
             }
+
             context.getPlayer().sendMessage(Text.translatable("block.endrem.custom_eye.place"), true);
             return ActionResult.PASS;
         } else if (blockstate.isOf(Blocks.END_PORTAL_FRAME) && ERConfigHandler.CAN_REMOVE_EYE) {
